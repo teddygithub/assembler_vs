@@ -1,0 +1,105 @@
+//%inst in1,in2,in3,in4,out
+PE:00
+//start:2
+//iteration:10
+%load  GR00,x,x,x,x
+
+PE:01
+//start:0
+//iteration:1
+%load  GR00,x,x,x,x
+
+PE:02
+//start:0
+//iteration:1
+%load  GR00,x,x,x,x
+
+PE:03
+//start:0
+//iteration:1
+%load  GR00,x,x,x,x
+
+PE:08
+//start:1
+//iteration:1
+%shr PE0UPUP,IM0000,x,x,x
+
+PE:09
+//start:1
+//iteration:1
+%shr PE0UPUP,IM0008,x,x,x
+
+PE:10
+//start:1
+//iteration:1
+%shr PE0UPUP,IM0016,x,x,x
+
+PE:11
+//start:1
+//iteration:1
+%shr PE0UPUP,IM0024,x,x,x
+
+PE:16
+//start:2
+//iteration:1
+%and PE0UPUP,IM0255,x,x,x
+
+PE:17
+//start:2
+//iteration:1
+%and PE0UPUP,IM0255,x,x,x
+
+PE:18
+//start:2
+//iteration:1
+%and PE0UPUP,IM0255,x,x,x
+
+PE:19
+//start:2
+//iteration:1
+%and PE0UPUP,IM0255,x,x,x
+
+PE:24
+//start:4
+//iteration:1
+%store PE0UPUP,x,x,x,PE0DOWN
+
+PE:25
+//start:4
+//iteration:1
+%store PE0UPUP,x,x,x,PE0DOWN
+
+PE:26
+//start:4
+//iteration:1
+%store PE0UPUP,x,x,x,PE0DOWN
+
+PE:27
+//start:4
+//iteration:1
+%store PE0UPUP,x,x,x,PE0DOWN
+
+PE:32
+//start:3
+//iteration:1
+%mac IMM0004,GR00,IMM0560,x,x
+
+PE:33
+//start:3
+//iteration:1
+%mac IMM0004,GR00,IMM0560,x,x
+
+PE:34
+//start:3
+//iteration:1
+%mac IMM0004,GR00,IMM0560,x,x
+
+PE:35
+//start:3
+//iteration:1
+%mac IMM0004,GR00,IMM0560,x,x
+
+PE:36
+//start:4
+//iteration:1
+%add GR00,IM0001,x,x,GR00
