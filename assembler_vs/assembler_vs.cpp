@@ -7,7 +7,7 @@
 
 int main(){
     std::cout << "Assembler for CGRA V0.1!\n"; 
-	StringList inputs = getInputAssemble();
+	StringList inputs = getInputAssemble();	
 	Assembler::clearComments(inputs);
 	InstructionList instructionList;
 	Assembler::groupInstructions(instructionList,inputs);
@@ -20,20 +20,40 @@ int main(){
 		fout << "PE" << i - instructionList.begin() << endl;
 		if (i->size() != 0) {
 			StringList tempList = *i;
-			string stringStart = tempList[0];
-			string stringIteration = tempList[1];
-			int intStart = atoi(stringStart.substr(8, stringStart.size() - 8).c_str());
-			int intIteration = atoi(stringIteration.substr(12, stringIteration.size() - 12).c_str());
-			for (int it = 0; it != intStart; it++) {
-				fout << "0000_0000_0000_0000_0000_0000_0000_00000"<<endl;
-			}
-			for (int it = 0; it != intIteration; it++) {
-				for (auto j = i->begin()+2; j != i->end(); j++) {
-					string temp = *j;
-					fout << Assembler::transformAssembles(temp) << endl;
+			for (auto j = i->begin(); j != i->end(); j++) {
+				string temp = *j;
+				if (temp[0] == '/' && temp[2] == 's') {
+					string stringStart = temp;
+					int intStart = atoi(stringStart.substr(8, stringStart.size() - 8).c_str());
+					for (int it = 0; it != intStart; it++) {
+						fout << "0000000000000000000000000000000000000000000000000000000000000000" << endl;
+					}
+				}
+				else if(temp[0] == '/' && temp[2] =='i'){
+					string stringIteration = temp;
+					string stringLength = *(j + 1);
+					int intIteration = atoi(stringIteration.substr(12, stringIteration.size() - 12).c_str());
+					int intLength = atoi(stringLength.substr(9, stringLength.size() - 9).c_str());
+					if (intLength != 1) {
+						for (int it = 0; it != intIteration; it++) {
+							for (int m = 1; m <= intLength; m++) {
+								string temp = *(j + 1 + m);
+								Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength);
+								fout << ass.transformAssembles(temp) << endl;
+							}
+						}
+					}
+					else {
+						string temp = *(j + 2);
+						Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength);
+						fout << ass.transformAssembles(temp) << endl;
+					}
+					
+				}
+				else {
+					continue;
 				}
 			}
-			
 		}
 	}
 	fout.close();
