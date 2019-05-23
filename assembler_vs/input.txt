@@ -63,13 +63,13 @@ PE[8]
 //iteration=0|length=1
 %nop 0,0
 //iteration=14|length=1|II=1
-%mac PE0upup,LR0,GR0
+%mac PE1upup,LR0,GR0
 //iteration=14|length=1|II=1
-%mac PE0upup,LR1,GR0
+%mac PE1upup,LR1,GR0
 //iteration=14|length=1|II=1
-%mac PE0upup,LR2,GR0
+%mac PE1upup,LR2,GR0
 //iteration=14|length=1|II=1
-%mac PE0upup,LR3,GR0
+%mac PE1upup,LR3,GR0
 
 
 PE[9]  
@@ -170,13 +170,13 @@ PE[13]
 //iteration=15|length=1
 %nop 0,0
 //iteration=14|length=1|II=1
-%mac PE0upup,LR0,PE0left
+%mac PEupup,LR0,PE0left
 //iteration=14|length=1|II=1
-%mac PE0upup,LR1,PE0left
+%mac PEupup,LR1,PE0left
 //iteration=14|length=1|II=1
-%mac PE0upup,LR2,PE0left
+%mac PEupup,LR2,PE0left
 //iteration=14|length=1|II=1
-%mac PE0upup,LR3,PE0left
+%mac PEupup,LR3,PE0left
 
 
 PE[14]
@@ -849,10 +849,12 @@ PE[46]
 %mac PE1upup,LR3,PE0left
 
 PE[47]
-%top 0,0,0,0,4,0,6
+%top 0,0,0,0,4,0,7
 //iteration=11|length=1
 %load SM2304,1
-//iteration=33|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=1|length=1
 %nop 0,0
 //iteration=13|length=1|II=2
 %store SM1068,PE0left,1
@@ -991,7 +993,7 @@ PE[53]
 %mac PE1upup,LR3,PE0left
 
 PE[54]
-%top 0,0,0,0,8,0,9
+%top 0,0,0,0,8,0,10
 //iteration=2|length=1|II=2
 %router PE0righ,LR0
 //iteration=2|length=1|II=2
@@ -1000,7 +1002,9 @@ PE[54]
 %router PE0righ,LR2
 //iteration=2|length=1|II=2
 %router PE0righ,LR3
-//iteration=33|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=1|length=1
 %nop 0,0
 //iteration=14|length=1|II=1
 %mac PE1upup,LR0,PE0left
@@ -1012,10 +1016,12 @@ PE[54]
 %mac PE1upup,LR3,PE0left
 
 PE[55]
-%top 0,0,0,0,4,0,6
+%top 0,0,0,0,4,0,7
 //iteration=11|length=1
 %load SM2816,1
-//iteration=36|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=4|length=1
 %nop 0,0
 //iteration=13|length=1|II=2
 %store SM1320,PE0left,1
@@ -1132,7 +1138,7 @@ PE[60]
 %mac PE1upup,LR3,PE0left
 
 PE[61]
-%top 0,0,0,0,9,0,9
+%top 0,0,0,0,9,0,10
 //iteration=1|length=1|II=3
 %router PE0righ,LR0
 //iteration=1|length=1|II=3
@@ -1141,7 +1147,9 @@ PE[61]
 %router PE0righ,LR2
 //iteration=1|length=1|II=3
 %router PE0righ,LR3
-//iteration=33|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=1|length=1
 %nop 0,0
 //iteration=14|length=1|II=1
 %mac PE1upup,LR0,PE0left
@@ -1153,7 +1161,7 @@ PE[61]
 %mac PE1upup,LR3,PE0left
 
 PE[62]
-%top 0,0,0,0,8,0,9
+%top 0,0,0,0,8,0,10
 //iteration=2|length=1|II=2
 %router PE0righ,LR0
 //iteration=2|length=1|II=2
@@ -1162,7 +1170,9 @@ PE[62]
 %router PE0righ,LR2
 //iteration=2|length=1|II=2
 %router PE0righ,LR3
-//iteration=36|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=4|length=1
 %nop 0,0
 //iteration=14|length=1|II=1
 %mac PE1upup,LR0,PE0left
@@ -1174,10 +1184,12 @@ PE[62]
 %mac PE1upup,LR3,PE0left
 
 PE[63]
-%top 0,0,0,0,4,0,6
+%top 0,0,0,0,4,0,7
 //iteration=11|length=1
 %load SM1580,1
-//iteration=39|length=1
+//iteration=31|length=1
+%nop 0,0
+//iteration=7|length=1
 %nop 0,0
 //iteration=13|length=1|II=2
 %store SM1580,PE0left,1
