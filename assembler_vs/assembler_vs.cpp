@@ -17,7 +17,7 @@ int main(){
 	//	fout <<Assembler::transformAssembles(temp)<<endl;
 	//}
 	for (auto i = instructionList.begin(); i != instructionList.end(); i++) {	
-		fout << "PE" << i - instructionList.begin() << endl;
+		//fout << "PE" << i - instructionList.begin() << endl;
 		if (i->size() != 0) {
 			StringList tempList = *i;
 			for (auto j = i->begin(); j != i->end(); j++) {
@@ -30,31 +30,46 @@ int main(){
 					}
 				}
 				else if(temp[0] == '/' && temp[2] =='i'){
-					string stringIteration = temp;
-					string stringLength = *(j + 1);
-					int intIteration = atoi(stringIteration.substr(12, stringIteration.size() - 12).c_str());
-					int intLength = atoi(stringLength.substr(9, stringLength.size() - 9).c_str());
+					string total = temp.substr(2, temp.size() - 2);
+					string sep = "|";
+					string stringIteration = Assembler::splitString(total,sep)[0];
+					string stringLength = Assembler::splitString(total, sep)[1];
+					int intII;
+					if (Assembler::splitString(total, sep).size() > 2) {
+						string stringII = Assembler::splitString(total, sep)[2];
+						intII = atoi(stringII.substr(3, stringII.size() - 3).c_str());
+					} else{
+						intII = 0;
+					}
+					int intIteration = atoi(stringIteration.substr(10, stringIteration.size() - 10).c_str());
+					int intLength = atoi(stringLength.substr(7, stringLength.size() - 7).c_str());				
+
 					if (intLength != 1) {
 						for (int it = 0; it != intIteration; it++) {
 							for (int m = 1; m <= intLength; m++) {
-								string temp = *(j + 1 + m);
-								Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength);
+								string temp = *(j + m);
+								Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength,intII);
 								fout << ass.transformAssembles(temp) << endl;
 							}
 						}
 					}
 					else {
-						string temp = *(j + 2);
-						Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength);
+						string temp = *(j + 1);
+						Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength,intII);
 						fout << ass.transformAssembles(temp) << endl;
 					}
 					
 				}
-				else {
+				else if (temp[0] == '%' && temp[1] == 't') {
+					Assembler ass = Assembler(i - instructionList.begin(), 0, 1,0);
+					fout << ass.transformAssembles(temp) << endl;
+				}
+				else	{
 					continue;
 				}
 			}
 		}
+		fout << endl;
 	}
 	fout.close();
 }

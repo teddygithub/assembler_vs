@@ -1,23 +1,2 @@
-﻿  Assembler.cpp
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(145): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(465): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(468): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(484): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(519): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(522): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(528): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(531): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(537): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(540): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(546): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(549): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(560): warning C4018: “<”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(593): warning C4018: “>”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(638): warning C4018: “>”: 有符号/无符号不匹配
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(688): warning C4804: “<=”: 在操作中使用类型“bool”不安全
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(691): warning C4804: “<=”: 在操作中使用类型“bool”不安全
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(694): warning C4804: “<=”: 在操作中使用类型“bool”不安全
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(697): warning C4804: “<=”: 在操作中使用类型“bool”不安全
-c:\projects\assembler_vs\assembler_vs\assembler_vs\assembler.cpp(700): warning C4715: “Assembler::groupPELocation”: 不是所有的控件路径都返回值
+﻿  assembler_vs.cpp
   assembler_vs.vcxproj -> C:\Projects\assembler_vs\assembler_vs\Debug\assembler_vs.exe

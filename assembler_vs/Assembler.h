@@ -8,7 +8,7 @@ typedef vector<StringList> InstructionList;
 class Assembler
 {
 public:
-	Assembler(int id,int iteration, int length);
+	Assembler(int id,int iteration, int length,int II);
 	~Assembler();
 	static StringList splitString(string &s, string &split);
 	static void groupInstructions(InstructionList &iL, StringList & sL);
@@ -26,6 +26,7 @@ private:
 	int locaton;
 	int intIteration;
 	int intLength;
+	int intII;
 	string opcode;
 	string in1;
 	string in2;
@@ -47,7 +48,7 @@ private:
 	string Index_PE ;
 	string Iteration_PEA ;
 	string Iteration_PE ;
-	string Initial_Idel ;
+	string Initial_Idle ;
 	string Iteration_Line ;
 	string Count;
 	int type;

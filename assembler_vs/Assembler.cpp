@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Assembler.h"
 
-Assembler::Assembler(int id, int ii, int ll)
+Assembler::Assembler(int id, int ii, int ll, int II)
 {
 	in1 = "XXXXXXXX";
 	in2 = "XXXXXXXX";
@@ -23,7 +23,7 @@ Assembler::Assembler(int id, int ii, int ll)
 	Index_PE = "XXXXXXXX";
 	Iteration_PEA = "XXXXXXX";
 	Iteration_PE = "XXXXXXX";
-	Initial_Idel = "XXXXXX";
+	Initial_Idle = "XXXXXX";
 	Iteration_Line = "XX";
 	Count = "XXXXXX";
 	type = 0;
@@ -31,6 +31,7 @@ Assembler::Assembler(int id, int ii, int ll)
 	locaton = groupPELocation(PE_ID);
 	intIteration = ii;
 	intLength = ll;
+	intII = II;
 }
 
 Assembler::~Assembler()
@@ -156,14 +157,14 @@ void Assembler::clearComments(StringList &sL)
 
 void Assembler::transformOpcode(string &opcode)
 {
-	if (opcode == "%route") {
+	if (opcode == "%router") {
 		opcode = "00001";
 	}
 	else if (opcode == "%load") {
-		opcode = "01";
+		opcode = "00";
 	}
 	else if (opcode == "%store") {
-		opcode = "10";
+		opcode = "01";
 	}
 	else if (opcode == "%add") {
 		opcode = "00010";
@@ -437,16 +438,13 @@ void Assembler::transformIndex(string &index) {
 	}
 }
 
-string IntToBinaryString(int & n,int length) {
+string IntToBinaryString(int n,int length) {
 	string binary="";
 	while (n / 2 != 1 && n!=0) {		
 		binary = n % 2 == 0 ? "0" + binary : "1" + binary;
 		n = n / 2;
 	}
-	if (n == 0) {
-		binary = "0";
-	}
-	else {
+	if (n != 0) {
 		binary = n % 2 == 0 ? "0" + binary : "1" + binary;
 		binary = "1" + binary;
 	}
@@ -466,10 +464,10 @@ void Assembler::tranformOut(string &temp)
 		number = number + temp[i];
 	}
 	int Number = atof(number.c_str());
-	if (temp[0] == 'G' && temp[1] == 'R') {
+	if (temp[0] == 'L' && temp[1] == 'R') {
 		temp = "0000" + D2B(Number);
 	}
-	else if (temp[0] == 'L' && temp[1] == 'R')
+	else if (temp[0] == 'G' && temp[1] == 'R')
 	{
 		temp = "0100" + D2B(Number);
 	}
@@ -544,12 +542,12 @@ void Assembler::transformIn(string &temp)
 	else if (temp[0] == 'S' && temp[1] == 'M') {
 		string SM;
 		for (int i = 2; i < temp.size(); i++) {
-			SM.append(&temp[i]);
+			SM = SM + temp[i];
 		}
-		int Number = atof(SM.c_str());
+		int Number = atoi(SM.c_str());
 		string binary = IntToBinaryString(Number, 12);
 		temp = "1000"+binary.substr(0,4);
-		DirectAddrMem = binary.substr(5,8);
+		DirectAddrMem = binary.substr(4,8);
 	}
 }
 
@@ -575,7 +573,22 @@ void Assembler::transformOperands(StringList &operands)
 {
 	if (type == 0) { //ALU
 		int size = 2;
-		if (opcode == "10011" || opcode == "10001") { //MAC
+		Imm = "0";
+		in1 = operands.at(0);
+		transformIn(in1);
+		if (opcode == "00001") {//route
+			in2 = "00000000";
+			size = 1;
+		}
+		else {
+			in2 = operands.at(1);
+			transformIn(in2);
+		}
+		if (opcode == "00000") { //nop
+			in1 = "00000000";
+			in2 = "00000000";
+		}
+		if (opcode == "10011" || opcode == "10001") { //mac
 			in3 = operands.at(2);
 			transformIn(in3);
 			size = 3;
@@ -601,39 +614,42 @@ void Assembler::transformOperands(StringList &operands)
 		out3 = "0";
 		if (intLength == 1) {
 			string iter_num = IntToBinaryString(intIteration, 5);
-			iteration = "00" + iter_num + "000";
+			string iter_II = IntToBinaryString(intII, 3);
+			iteration = "00" + iter_num + iter_II;
 		}
 		else {
-			iteration = "0000001000";
+			iteration = "0000000000";
 		}
-		in1 = operands.at(0);
-		in2 = operands.at(1);
-		transformIn(in1);
-		transformIn(in2);
+			
+		
 	}
 	else if (type == 1) { //LS
 		if (intLength == 1) {
 			string iter_num = IntToBinaryString(intIteration, 5);
-			iteration = "00" + iter_num + "000";
+			string iter_II = IntToBinaryString(intII, 3);
+			iteration = "00" + iter_num + iter_II;
 		}
 		else {
-			iteration = "0000001000";
+			iteration = "0000000000";
 		}
 		DirectAddrMem = "00000000";
-		Offset = "0000";
-		int size = 1;
-		if (opcode == "01") { //Load
+		int size = 2;
+		if (opcode == "00") { //Load
 			AddrMem = operands.at(0);
 			transformIn(AddrMem);
+			int intOffset = atoi(operands.at(1).c_str());
+			Offset = IntToBinaryString(intOffset, 4);
 			InMem = "00000000";
 		}
-		else if (opcode == "10") { //Store		
+		else if (opcode == "01") { //Store		
 			AddrMem = operands.at(0);
 			transformIn(AddrMem);
 			InMem = operands.at(1);
+			int intOffset = atoi(operands.at(1).c_str());
+			Offset = IntToBinaryString(intOffset, 4);
 			transformIn(AddrMem);
 			transformIn(InMem);
-			size = 2;
+			size = 3;
 		}
 		if (operands.size() > size) {
 			out1 = operands.at(size);
@@ -643,20 +659,7 @@ void Assembler::transformOperands(StringList &operands)
 			out1 = "1000000";
 		}
 	}
-	else if (type == 2) { //top
-		Task_PackageNum = "00000";
-		Package_Index = "00000";
-		Index_PE = "00000000";
-		Iteration_PEA = "0000000";
-		Iteration_PE = "0000000";
-		Initial_Idel = "000000";
-		Iteration_Line = "00";
-		Count = "000000";
-	}
-
-	for (int i = 0; i != operands.size(); i++) {
-		string inOut = operands.at(i);
-	}
+	
 }
 
 int Assembler::groupPELocation(int PE_ID)
@@ -729,18 +732,35 @@ string Assembler::transformAssembles(string &temp)
 	transformOperands(operands);
 
 	string transformed;
-	//string transformed = in1 + "_" + in2 + "_" + in3 + "_" + out1 + "_" + opcode;
 	if (type == 0) { // ALU
-		transformed = ConfigExtend + Func + in1 + in2 + in3 + in4 +
-			Imm + out1 + out2 + out3 + iteration + opcode;
+		transformed = ConfigExtend + "_" + Func + "_" + in1 + "_" + in2 + "_" + in3 + "_" + in4 + "_" +
+			Imm + "_" + out1 + "_" + out2 + "_" + out3 + "_" + iteration + "_" + opcode;
 	}
 	else if (type == 1) { //LS
-		transformed = ConfigExtend + Func + AddrMem + DirectAddrMem
-			+ InMem + Offset + "000" + out1 + "00000000" + iteration + "000" + opcode;
+		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
+			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "00000000" 
+			+ "_" + iteration + "_" + "000" + "_" + opcode;
 	}
 	else if (type == 2) { //top
-		transformed = ConfigExtend + Func + Task_PackageNum + "000" + Package_Index + "000" +
-			Index_PE + Iteration_PEA + Iteration_PE + Initial_Idel + Iteration_Line + "000000000" + Count;
+		Index_PE = IntToBinaryString(PE_ID, 8);	
+		Task_PackageNum = operands.at(0); //0开始计数
+		Task_PackageNum = IntToBinaryString(atof(Task_PackageNum.c_str()), 5);
+		Package_Index = operands.at(1); //0开始计数
+		Package_Index = IntToBinaryString(atof(Package_Index.c_str()), 5);
+		Iteration_PEA = operands.at(2); 
+		Iteration_PEA = IntToBinaryString(atof(Iteration_PEA.c_str()), 7);
+		Iteration_PE = operands.at(3);
+		Iteration_PE = IntToBinaryString(atof(Iteration_PE.c_str()), 7);
+		Initial_Idle = operands.at(4);
+		Initial_Idle = IntToBinaryString(atof(Initial_Idle.c_str()), 6);
+		Iteration_Line = operands.at(5);
+		Iteration_Line = IntToBinaryString(atof(Iteration_PE.c_str()), 2);
+		Count = operands.at(6);
+		int intCount = atof(Count.c_str());
+		Count = IntToBinaryString(intCount, 6);
+		transformed = ConfigExtend + "_"+Func + "_" + Task_PackageNum + "_" + "000" + "_" + Package_Index + "_" + "000" +
+			"_" + Index_PE + "_" + Iteration_PEA + "_" + Iteration_PE + "_" +
+			Initial_Idle + "_" + Iteration_Line + "_" + "00_0_000000" + "_" + Count;
 	}
 	return transformed;
 }
