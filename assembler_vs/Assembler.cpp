@@ -521,7 +521,7 @@ void Assembler::transformIn(string &temp)
 		temp = source + "00" + D2B(Number);
 	}
 	else if (temp[0] == 'G' && temp[1] == 'R') {
-		string source = "010";
+		string source = "001";
 		string index = "";
 		for (int i = 2; i < temp.size(); i++) {
 			index = index + temp[i];
@@ -738,7 +738,7 @@ string Assembler::transformAssembles(string &temp)
 	}
 	else if (type == 1) { //LS
 		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
-			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "00000000" 
+			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_0" 
 			+ "_" + iteration + "_" + "000" + "_" + opcode;
 	}
 	else if (type == 2) { //top
