@@ -62,7 +62,6 @@ StringList Assembler::splitString(string& s, string& seperator)
 	string_size i = 0;
 
 	while (i != s.size()) {
-		//�ҵ��ַ������׸������ڷָ�������ĸ��
 		int flag = 0;
 		while (i != s.size() && flag == 0) {
 			flag = 1;
@@ -74,7 +73,6 @@ StringList Assembler::splitString(string& s, string& seperator)
 				}
 		}
 
-		//�ҵ���һ���ָ������������ָ���֮����ַ���ȡ����
 		flag = 0;
 		string_size j = i;
 		while (j != s.size() && flag == 0) {
@@ -232,6 +230,18 @@ void Assembler::transformOpcode(string &opcode)
 }
 
 void Assembler::transformIndex(string &index) {
+	//	return 0;//左上顶角
+	//	return 1;//右上顶角
+	//	return 2;//左下顶角
+	//	return 3;//右上顶角
+	//	return 4;//上边沿
+	//	return 5;//下边沿
+	//	return 6;//左边沿
+	//	return 7;//右边沿
+	//	return 8;//左上区
+	//	return 9;//左下区
+	//	return 10;//右上区
+	//	return 11;//右下区
 	if (index == "upup") {
 		switch (this->locaton) {
 		case 0:index = "0111"; break;
@@ -242,10 +252,10 @@ void Assembler::transformIndex(string &index) {
 		case 5:index = "0100"; break;
 		case 6:index = "0000"; break;
 		case 7:index = "0000"; break;
-		case 8:index = "0010"; break;
-		case 9:index = "0010"; break;
-		case 10:index = "0010"; break;
-		case 11:index = "0010"; break;
+		case 8:index = "0000"; break;
+		case 9:index = "0000"; break;
+		case 10:index = "0000"; break;
+		case 11:index = "0000"; break;
 		default:index = "UNKOWN";	break;
 		}
 	}
@@ -259,10 +269,10 @@ void Assembler::transformIndex(string &index) {
 		case 5:index = "0000"; break;
 		case 6:index = "0111"; break;
 		case 7:index = "0100"; break;
-		case 8:index = "0000"; break;
-		case 9:index = "0000"; break;
-		case 10:index = "0000"; break;
-		case 11:index = "0000"; break;
+		case 8:index = "0010"; break;
+		case 9:index = "0010"; break;
+		case 10:index = "0010"; break;
+		case 11:index = "0010"; break;
 		default:index = "UNKOWN";	break;
 		}
 	}
@@ -276,10 +286,10 @@ void Assembler::transformIndex(string &index) {
 		case 5:index = "0111"; break;
 		case 6:index = "0001"; break;
 		case 7:index = "0001"; break;
-		case 8:index = "0011"; break;
-		case 9:index = "0011"; break;
-		case 10:index = "0011"; break;
-		case 11:index = "0011"; break;
+		case 8:index = "0001"; break;
+		case 9:index = "0001"; break;
+		case 10:index = "0001"; break;
+		case 11:index = "0001"; break;
 		default:index = "UNKOWN";	break;
 		}
 	}
@@ -293,10 +303,10 @@ void Assembler::transformIndex(string &index) {
 		case 5:index = "0001"; break;
 		case 6:index = "0100"; break;
 		case 7:index = "0111"; break;
-		case 8:index = "0001"; break;
-		case 9:index = "0001"; break;
-		case 10:index = "0001"; break;
-		case 11:index = "0001"; break;
+		case 8:index = "0011"; break;
+		case 9:index = "0011"; break;
+		case 10:index = "0011"; break;
+		case 11:index = "0011"; break;
 		default:index = "UNKOWN";	break;
 		}
 	}
@@ -478,29 +488,23 @@ void Assembler::transformIn(string &temp)
 	if (temp[0] == 'P' && temp[1] == 'E') {
 		string source = "010";
 		string out1_or_out2 = temp.substr(2, 1);
+		if (out1_or_out2 == "0") {
+			source = "010";
+		}
+		else {
+			source = "100";
+		}
 		string index;
 		for (int i = 3; i < temp.size(); i++) {
 			index = index + temp[i];
 		}
-		//	return 0;//左上顶角
-		//	return 1;//右上顶角
-		//	return 2;//左下顶角
-		//	return 3;//右上顶角
-		//	return 4;//上边沿
-		//	return 5;//下边沿
-		//	return 6;//左边沿
-		//	return 7;//右边沿
-		//	return 8;//左上区
-		//	return 9;//左下区
-		//	return 10;//右上区
-		//	return 11;//右下区
+		
 		if (index == "self") {
-			source = "011";
 			if (out1_or_out2 == "0") {
 				temp = "01100000";
 			}
 			else if (out1_or_out2 == "1") {
-				temp = "01111000";
+				temp = "01101000";
 			}
 			else {
 				_ASSERT("out1_or_out2 is wrong");
@@ -508,7 +512,7 @@ void Assembler::transformIn(string &temp)
 		}
 		else {
 			transformIndex(index);
-			temp = source + out1_or_out2 + index;
+			temp = source + "0" + index;
 		}
 	}
 	else if (temp[0] == 'L' && temp[1] == 'R') {
@@ -577,7 +581,9 @@ void Assembler::transformOperands(StringList &operands)
 		in1 = operands.at(0);
 		transformIn(in1);
 		if (opcode == "00001") {//route
-			in2 = "00000000";
+			in1 = "00000000";
+			in2 = operands.at(0);
+			transformIn(in2);
 			size = 1;
 		}
 		else {
@@ -645,7 +651,7 @@ void Assembler::transformOperands(StringList &operands)
 			AddrMem = operands.at(0);
 			transformIn(AddrMem);
 			InMem = operands.at(1);
-			int intOffset = atoi(operands.at(1).c_str());
+			int intOffset = atoi(operands.at(2).c_str());
 			Offset = IntToBinaryString(intOffset, 4);
 			transformIn(AddrMem);
 			transformIn(InMem);
