@@ -18,6 +18,7 @@ int main(){
 	//}
 	for (auto i = instructionList.begin(); i != instructionList.end(); i++) {	
 		//fout << "PE" << i - instructionList.begin() << endl;
+		int PE=0;
 		if (i->size() != 0) {
 			StringList tempList = *i;
 			for (auto j = i->begin(); j != i->end(); j++) {
@@ -48,24 +49,26 @@ int main(){
 						for (int it = 0; it != intIteration; it++) {
 							for (int m = 1; m <= intLength; m++) {
 								string temp = *(j + m);
-								Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength,intII);
+								Assembler ass = Assembler(PE, intIteration, intLength,intII);
 								fout << ass.transformAssembles(temp) << endl;
 							}
 						}
 					}
 					else {
 						string temp = *(j + 1);
-						Assembler ass = Assembler(i - instructionList.begin(), intIteration, intLength,intII);
+						Assembler ass = Assembler(PE, intIteration, intLength,intII);
 						fout << ass.transformAssembles(temp) << endl;
 					}
 					
 				}
 				else if (temp[0] == '%' && temp[1] == 't') {
-					Assembler ass = Assembler(i - instructionList.begin(), 0, 1,0);
+					Assembler ass = Assembler(PE, 0, 1,0);
 					fout << ass.transformAssembles(temp) << endl;
 				}
-				else	{
-					continue;
+				else {
+					StringList tempList = *i;
+					string temp = tempList[0];
+					PE = atoi(temp.substr(3, 2).c_str());
 				}
 			}
 		}

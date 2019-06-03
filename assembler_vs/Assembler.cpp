@@ -96,17 +96,24 @@ void Assembler::groupInstructions(InstructionList & instructionList, StringList 
 	StringList tempList;
 	int PE_Number = 0;
 	//compensate when first umempty pe is not 0
+	//int firstID = atoi(inputs[0].substr(3, 2).c_str());
+	//if (firstID != 0) {
+	//	for (int i = 0; i != firstID; i++) {
+	//		instructionList.push_back(tempList);
+	//	}
+	//	PE_Number = firstID;
+	//}
 	int firstID = atoi(inputs[0].substr(3, 2).c_str());
-	if (firstID != 0) {
-		for (int i = 0; i != firstID; i++) {
-			instructionList.push_back(tempList);
-		}
-		PE_Number = firstID;
-	}
 	for (auto i = inputs.begin(); i != inputs.end(); i++) {
 		string temp = *i;
 		if (temp[0] == 'P') {
-			string sub_temp = temp.substr(3, 2);
+			if (PE_Number != 0) {
+				instructionList.push_back(tempList);
+				tempList.clear();
+				PE_Number++;
+			}
+			tempList.push_back(temp);
+			/*string sub_temp = temp.substr(3, 2);
 			int number = atoi(sub_temp.c_str());
 			if (number != firstID) {
 				if (number == PE_Number) {
@@ -123,20 +130,21 @@ void Assembler::groupInstructions(InstructionList & instructionList, StringList 
 					PE_Number = number;
 				}
 			}
-			PE_Number++;
+			PE_Number++;*/
 		}
 		else {
 			tempList.push_back(temp);
+			PE_Number++;
 		}
 	}
 	instructionList.push_back(tempList);
 	//compensate when last umempty pe is not 63
-	if (PE_Number != 64) {
+	/*if (PE_Number != 64) {
 		tempList.clear();
 		for (int i = 0; i != 64 - PE_Number; i++) {
 			instructionList.push_back(tempList);
 		}
-	}
+	}*/
 }
 
 void Assembler::clearComments(StringList &sL)
@@ -149,6 +157,15 @@ void Assembler::clearComments(StringList &sL)
 		else if (sL[i][0] == '/' && (sL[i][2] != 's' && sL[i][2] != 'i' && sL[i][2] != 'l')) {
 			sL.erase(i + sL.begin());
 			i--;
+		}
+		else {
+			string *temp = &sL[i];
+			for (int j = 0; j < temp->size(); j++) {
+				if ((*temp)[j] == ' '&& j==0) {
+					temp->erase(j,1);
+					j--;
+				}
+			}
 		}
 	}
 }
@@ -559,7 +576,7 @@ void Assembler::transformIn4(string &temp)
 {
 	string out1_or_out2 = temp.substr(2, 1);
 	string index;
-	for (int i = 2; i < temp.size(); i++) {
+	for (int i = 3; i < temp.size(); i++) {
 		index = index + temp[i];
 	}
 	
@@ -604,6 +621,7 @@ void Assembler::transformOperands(StringList &operands)
 		}
 		if (opcode == "01010") { //sel
 			in4 = operands.at(2);
+			transformIn4(in4);
 			size = 3;
 		}
 		else {

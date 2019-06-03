@@ -1,0 +1,85 @@
+
+PE:0
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM1068,1
+
+PE:1
+%top 0,0,0,0,7,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%store SM0079,GR1,1
+
+PE:6
+%top 0,0,0,0,7,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%store SM3640,GR2,1
+
+PE:7
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM1320,1
+
+PE:8
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%add PE0upup,PE0down,GR1
+
+PE:15
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%add PE0upup,PE0down,GR2
+
+PE:16
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM2828,1
+
+PE:23
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM3088,1
+
+PE:40
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM3340,1
+
+PE:48
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%add PE0upup,PE0down,GR3
+
+PE:56
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%load SM1580,1
+
+PE:57
+%top 0,0,0,0,7,0,2
+//iteration=27|length=1
+%nop 0,0
+//iteration=27|length=1
+%store SM3868,GR3,1
+

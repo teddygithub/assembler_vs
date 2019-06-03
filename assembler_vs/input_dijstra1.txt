@@ -1,0 +1,65 @@
+PE:1
+%top 0,0,0,0,0,0,1
+//iteration=27|length=1
+%load SM0,1
+
+PE:2
+%top 0,0,0,0,0,0,1
+//iteration=27|length=1
+%load SM256,1
+
+PE:4
+%top 0,0,0,0,7,0,2
+//iteration=27|length=1|II=2
+%load SM512,1
+
+PE:16
+%top 0,0,0,0,7,0,2
+//iteration=27|length=1|II=2
+%load SM768,1
+
+PE:17
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%abs PE0upte,IM0
+
+PE:18
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1|II=2
+%select PE0lete,PE0upte,PE0left
+
+PE:24
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1|II=2
+%router PE0upup
+
+PE:26
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%select PE0lete,PE0upup,PE0righ
+
+PE:27
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%router PE0righ
+
+PE:28
+%top 0,0,0,0,0,0,2
+//iteration=27|length=1
+%sub PE0upte,PE0rite
+
+PE:31
+%nop 0,0
+//iteration=27|length=1
+%load SM1024,1
+
+PE:34
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1|II=2
+%router PE0upup
+
+PE:58
+%top 0,0,0,0,4,0,2
+//iteration=27|length=1|II=2
+%store SM1300,PE0dis3
+
