@@ -55,6 +55,65 @@ string D2B(int &n) {
 	return result;
 }
 
+int charToDigit(char c)
+{
+	if (c == 'A')
+		return 10;
+	else if (c == 'B')
+		return 11;
+	else if (c == 'C')
+		return 12;
+	else if (c == 'D')
+		return 13;
+	else if (c == 'E')
+		return 14;
+	else if (c == 'F')
+		return 15;
+	else
+		return c - '0';
+}
+
+long long int B2D(string pre)
+{
+	int length = pre.size();
+	int result = 0;
+	for (int i = 0; i < length; i++)
+	{
+		result += ((charToDigit(pre[i]))*pow(2, length - 1 - i));
+	}
+	return result;
+}
+
+string D2H(long long int pre) {
+	ostringstream oss;
+	if (pre == 0)
+		return "0";
+	while (pre != 0) {
+		int mod = pre % 16;
+		if (mod == 10)
+			oss << "a";
+		else if (mod == 11)
+			oss << "b";
+		else if (mod == 12)
+			oss << "c";
+		else if (mod == 13)
+			oss << "d";
+		else if (mod == 14)
+			oss << "e";
+		else if (mod == 15)
+			oss << "f";
+		else
+			oss << pre % 16;
+		pre /= 16;
+	}
+	string res = oss.str();
+	oss.str("");//清空原数据流
+	for (int i = 0; i < res.length(); i++) {
+		oss << res[res.length() - i - 1];
+	}
+	return oss.str();
+}
+
 StringList Assembler::splitString(string& s, string& seperator)
 {
 	vector<string> result;
@@ -757,13 +816,42 @@ string Assembler::transformAssembles(string &temp)
 
 	string transformed;
 	if (type == 0) { // ALU
+#ifdef  HEX_OUTPUT
+		transformed = ConfigExtend +Func + in1 +  in2 +  in3 +  in4 + 
+			Imm +  out1 +  out2 +  out3 +  iteration +  opcode;
+		string result("");
+		for (int j = 0; j != 16; j++)
+		{
+			int dec = B2D(transformed.substr(4 * j, 4));
+			string hex = D2H(dec);
+			result = result + hex;
+		}
+		transformed = result;
+#else
 		transformed = ConfigExtend + "_" + Func + "_" + in1 + "_" + in2 + "_" + in3 + "_" + in4 + "_" +
 			Imm + "_" + out1 + "_" + out2 + "_" + out3 + "_" + iteration + "_" + opcode;
+#endif //  HEX_OUTPUT
+
+		
 	}
 	else if (type == 1) { //LS
+#ifdef HEX_OUTPUT
+		transformed = ConfigExtend +  Func +  AddrMem + DirectAddrMem
+			+  InMem + Offset +  "000"  + out1 +  "00000000"
+			+  iteration + "000" +  opcode;
+		string result("");
+		for (int j = 0; j != 16; j++)
+		{
+			int dec = B2D(transformed.substr(4 * j, 4));
+			string hex = D2H(dec);
+			result = result + hex;
+	    }
+		transformed = result;
+#else
 		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
-			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_0" 
+			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_0"
 			+ "_" + iteration + "_" + "000" + "_" + opcode;
+#endif // HEX_OUTPUT
 	}
 	else if (type == 2) { //top
 		Index_PE = IntToBinaryString(PE_ID, 8);	
@@ -782,9 +870,25 @@ string Assembler::transformAssembles(string &temp)
 		Count = operands.at(6);
 		int intCount = atof(Count.c_str());
 		Count = IntToBinaryString(intCount, 6);
-		transformed = ConfigExtend + "_"+Func + "_" + Task_PackageNum + "_" + "000" + "_" + Package_Index + "_" + "000" +
+#ifdef  HEX_OUTPUT
+		transformed = ConfigExtend +  Func +  Task_PackageNum +  "000" + Package_Index + "000" +
+			Index_PE +  Iteration_PEA + Iteration_PE + 
+			Initial_Idle +  Iteration_Line + "000000000" + Count;
+		string result("");
+		for (int j = 0; j != 16; j++)
+		{
+			int dec = B2D(transformed.substr(4 * j, 4));
+			string hex = D2H(dec);
+			result = result + hex;
+		}
+		transformed = result;
+#else
+		transformed = ConfigExtend + "_" + Func + "_" + Task_PackageNum + "_" + "000" + "_" + Package_Index + "_" + "000" +
 			"_" + Index_PE + "_" + Iteration_PEA + "_" + Iteration_PE + "_" +
 			Initial_Idle + "_" + Iteration_Line + "_" + "00_0_000000" + "_" + Count;
+#endif //  HEX_OUTPUT
+
+		
 	}
 	return transformed;
 }

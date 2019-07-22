@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <sstream>
+#define HEX_OUTPUT
 using namespace std;
 typedef vector<string> StringList;
 typedef vector<StringList> InstructionList;

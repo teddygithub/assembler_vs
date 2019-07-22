@@ -16,6 +16,7 @@ int main(){
 	//	string temp = inputs.at(i);
 	//	fout <<Assembler::transformAssembles(temp)<<endl;
 	//}
+	int countInst = 0;
 	for (auto i = instructionList.begin(); i != instructionList.end(); i++) {	
 		//fout << "PE" << i - instructionList.begin() << endl;
 		int PE=0;
@@ -50,20 +51,44 @@ int main(){
 							for (int m = 1; m <= intLength; m++) {
 								string temp = *(j + m);
 								Assembler ass = Assembler(PE, intIteration, intLength,intII);
+								countInst++;
+#ifdef HEX_OUTPUT
+								if(countInst%4==0)
+									fout << ass.transformAssembles(temp) << endl;
+								else
+									fout << ass.transformAssembles(temp);
+#else	
 								fout << ass.transformAssembles(temp) << endl;
+#endif HEX_OUTPUT
 							}
 						}
 					}
 					else {
 						string temp = *(j + 1);
 						Assembler ass = Assembler(PE, intIteration, intLength,intII);
+						countInst++;
+#ifdef HEX_OUTPUT
+						if (countInst % 4 == 0)
+							fout << ass.transformAssembles(temp) << endl;
+						else
+							fout << ass.transformAssembles(temp) ;
+#else	
 						fout << ass.transformAssembles(temp) << endl;
+#endif HEX_OUTPUT
 					}
 					
 				}
 				else if (temp[0] == '%' && temp[1] == 't') {
 					Assembler ass = Assembler(PE, 0, 1,0);
+					countInst++;
+#ifdef HEX_OUTPUT
+					if (countInst % 4 == 0)
+						fout << ass.transformAssembles(temp) << endl;
+					else
+						fout << ass.transformAssembles(temp) ;
+#else	
 					fout << ass.transformAssembles(temp) << endl;
+#endif HEX_OUTPUT
 				}
 				else {
 					StringList tempList = *i;
@@ -72,7 +97,9 @@ int main(){
 				}
 			}
 		}
+#ifndef HEX_OUTPUT
 		fout << endl;
+#endif
 	}
 	fout.close();
 }
