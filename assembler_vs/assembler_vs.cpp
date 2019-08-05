@@ -17,8 +17,8 @@ int main(){
 	//	fout <<Assembler::transformAssembles(temp)<<endl;
 	//}
 	int countInst = 0;
+	vector<string>  fourInst;
 	for (auto i = instructionList.begin(); i != instructionList.end(); i++) {	
-		//fout << "PE" << i - instructionList.begin() << endl;
 		int PE=0;
 		if (i->size() != 0) {
 			StringList tempList = *i;
@@ -53,13 +53,20 @@ int main(){
 								Assembler ass = Assembler(PE, intIteration, intLength,intII);
 								countInst++;
 #ifdef HEX_OUTPUT
-								if(countInst%4==0)
-									fout << ass.transformAssembles(temp) << endl;
+								if (countInst % 4 == 0) {
+									fourInst.push_back(ass.transformAssembles(temp));
+									int i = 4;
+									while (i--){
+										fout << fourInst[i].substr(0, 8) << endl;
+										fout << fourInst[i].substr(8, 8) << endl;
+									}
+									fourInst.clear();
+								}
 								else
-									fout << ass.transformAssembles(temp);
+									fourInst.push_back(ass.transformAssembles(temp));
 #else	
 								fout << ass.transformAssembles(temp) << endl;
-#endif HEX_OUTPUT
+#endif
 							}
 						}
 					}
@@ -68,13 +75,20 @@ int main(){
 						Assembler ass = Assembler(PE, intIteration, intLength,intII);
 						countInst++;
 #ifdef HEX_OUTPUT
-						if (countInst % 4 == 0)
-							fout << ass.transformAssembles(temp) << endl;
+						if (countInst % 4 == 0) {
+							fourInst.push_back(ass.transformAssembles(temp));
+							int i = 4;
+							while (i--) {
+								fout << fourInst[i].substr(0, 8) << endl;
+								fout << fourInst[i].substr(8, 8) << endl;
+							}
+							fourInst.clear();
+					}
 						else
-							fout << ass.transformAssembles(temp) ;
+							fourInst.push_back(ass.transformAssembles(temp));
 #else	
 						fout << ass.transformAssembles(temp) << endl;
-#endif HEX_OUTPUT
+#endif
 					}
 					
 				}
@@ -82,13 +96,20 @@ int main(){
 					Assembler ass = Assembler(PE, 0, 1,0);
 					countInst++;
 #ifdef HEX_OUTPUT
-					if (countInst % 4 == 0)
-						fout << ass.transformAssembles(temp) << endl;
+					if (countInst % 4 == 0) {
+						fourInst.push_back(ass.transformAssembles(temp));
+						int i = 4;
+						while (i--) {
+							fout << fourInst[i].substr(0, 8) << endl;
+							fout << fourInst[i].substr(8, 8) << endl;
+						}
+						fourInst.clear();
+					}
 					else
-						fout << ass.transformAssembles(temp) ;
+						fourInst.push_back(ass.transformAssembles(temp));
 #else	
 					fout << ass.transformAssembles(temp) << endl;
-#endif HEX_OUTPUT
+#endif
 				}
 				else {
 					StringList tempList = *i;
