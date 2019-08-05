@@ -1,5 +1,5 @@
-assembler_vs/Debug
-assembler_vs/Release
+assembler_vs/Debug/.
+assembler_vs/Release/.
 Debug
 Release
 .vs
