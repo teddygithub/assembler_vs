@@ -122,5 +122,19 @@ int main(){
 		fout << endl;
 #endif
 	}
+#ifdef HEX_OUTPUT
+	if (fourInst.size() > 0) {
+		int i = fourInst.size();
+		for (int j = 0; j < (4 - i); j++) {
+			fourInst.push_back("0000000000000000");
+		}
+		i = 4;
+		while (i--) {
+			fout << fourInst[i].substr(0, 8) << endl;
+			fout << fourInst[i].substr(8, 8) << endl;
+		}
+		fourInst.clear();
+	}
+#endif
 	fout.close();
 }

@@ -1,0 +1,72 @@
+PE[0]
+%top 0,0,0,0,4,0,2
+//iteration=0|length=1|II=0
+%add PE0righ,PE0upup    //2
+//iteration=0|length=1|II=0
+%sel PE0upup,PE0self,PE0left     //5
+//iteration=8|length=1|II=0
+%nop
+
+PE[1]
+%top 0,0,0,0,0,0,2
+//iteration=0|length=1|II=0
+%load SM512             //1
+//iteration=0|length=1|II=0
+%nop
+//iteration=0|length=1|II=0
+%store SM512,PE0left   //9
+//iteration=1|length=1|II=0
+%nop
+
+PE[7]
+%top 0,0,0,0,4,0,1
+//iteration=0|length=1|II=0
+%sub PE0righ,IM0       //4
+//iteration=12|length=1|II=0
+%nop
+
+PE[8]
+%top 0,0,0,0,10,0,1
+//iteration=0|length=1|II=0
+%sub PE0upup,PE0left    //6
+//iteration=12|length=1|II=0
+%nop
+
+PE[15]
+%top 0,0,0,0,6,0,1
+//iteration=0|length=1|II=0
+%load SM256             //3
+//iteration=10|length=1|II=0
+%nop
+
+PE[16]
+%top 0,0,0,0,10,0,2
+//iteration=0|length=1|II=0
+%route PE0upte         //5r
+//iteration=0|length=1|II=0
+%sel PE0left,PE0self,PE0upup  //7
+//iteration=8|length=1|II=0
+%nop
+
+PE[23]
+%top 0,0,0,0,10,0,1
+//iteration=0|length=1|II=0
+%route PE0upup         //3r
+//iteration=12|length=1|II=0
+%nop
+
+PE[24]
+%top 0,0,0,0,15,0,1
+//iteration=0|length=1|II=0
+%store SM256,PE0upup    //8
+//iteration=10|length=1|II=0
+%nop
+
+PE[56]
+%top 0,0,0,0,0,0,1
+//iteration=0|length=1|II=0
+%load  SM0,1            //0
+//iteration=0|length=1|II=0
+%route PE0self         //0r
+//iteration=6|length=1|II=0
+%nop

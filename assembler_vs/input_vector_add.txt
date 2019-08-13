@@ -1,0 +1,27 @@
+PE[0]
+%top 0,0,0,0,0,0,2
+//iteration=1|length=1|II=0
+%load SM1,0
+//iteration=0|length=1|II=0
+%load SM4095,1
+
+PE[1]
+%top 0,0,0,0,7,0,2
+//iteration=1|length=1|II=1
+%store SM513,GR0,0
+//iteration=0|length=1|II=1
+%store SM4095,GR0,1
+
+PE[8]
+%top 0,0,0,0,4,0,2
+//iteration=1|length=1|II=2
+%add PE0upup,PE0down,GR0
+//iteration=0|length=1|II=2
+%add PE0upup,PE0down,GR0
+
+PE[16]
+%top 0,0,0,0,0,0,2
+//iteration=1|length=1|II=0
+%load SM257,0
+//iteration=0|length=1|II=0
+%load SM4095,1
