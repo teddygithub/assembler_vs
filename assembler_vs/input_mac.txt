@@ -1,0 +1,34 @@
+PE[1]
+%top 0,0,0,0,0,0,1
+//iteration=0|length=1|II=0
+%load SM257,0
+
+PE[2]
+%top 0,0,0,0,1,0,1
+//iteration=0|length=1|II=0
+%load SM513,0
+
+PE[8]
+%top 0,0,0,0,0,0,1
+//iteration=0|length=1|II=0
+%load SM1,0
+
+PE[9]
+%top 0,0,0,0,4,0,1
+//iteration=0|length=1|II=0
+%mul PE0left,PE0upup
+
+PE[16]
+%top 0,0,0,0,9,0,1
+//iteration=0|length=1|II=0
+%store SM513,PE0righ,0
+
+PE[17]
+%top 0,0,0,0,7,0,1
+//iteration=0|length=1|II=0
+%add PE0upup,PE0righ
+
+PE[18]
+%top 0,0,0,0,5,0,1
+//iteration=0|length=1|II=0
+%router PE0upte

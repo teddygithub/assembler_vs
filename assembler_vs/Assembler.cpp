@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Assembler.h"
-
+//#define HEX_OUTPUT
 Assembler::Assembler(int id, int ii, int ll, int II)
 {
 	in1 = "XXXXXXXX";
@@ -625,9 +625,9 @@ void Assembler::transformIn(string &temp)
 			SM = SM + temp[i];
 		}
 		int Number = atoi(SM.c_str());
-		string binary = IntToBinaryString(Number, 12);
-		temp = "1000"+binary.substr(0,4);
-		DirectAddrMem = binary.substr(4,8);
+		string binary = IntToBinaryString(Number, 13);
+		temp = "100"+binary.substr(0,5);
+		DirectAddrMem = binary.substr(5,8);
 	}
 }
 
@@ -837,7 +837,7 @@ string Assembler::transformAssembles(string &temp)
 	else if (type == 1) { //LS
 #ifdef HEX_OUTPUT
 		transformed = ConfigExtend +  Func +  AddrMem + DirectAddrMem
-			+  InMem + Offset +  "000"  + out1 +  "00000000"
+			+  InMem + Offset +  "000"  + out1 +  "00000001"
 			+  iteration + "000" +  opcode;
 		string result("");
 		for (int j = 0; j != 16; j++)
@@ -849,7 +849,7 @@ string Assembler::transformAssembles(string &temp)
 		transformed = result;
 #else
 		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
-			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_0"
+			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_1"
 			+ "_" + iteration + "_" + "000" + "_" + opcode;
 #endif // HEX_OUTPUT
 	}

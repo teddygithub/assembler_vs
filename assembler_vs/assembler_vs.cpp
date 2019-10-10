@@ -4,6 +4,7 @@
 #include "pch.h"
 #include <iostream>
 #include "assembler_vs.h"
+//#define HEX_OUTPUT
 
 int main(){
     std::cout << "Assembler for CGRA V0.1!\n"; 
@@ -53,7 +54,7 @@ int main(){
 								Assembler ass = Assembler(PE, intIteration, intLength,intII);
 								countInst++;
 #ifdef HEX_OUTPUT
-								if (countInst % 4 == 0) {
+								/*if (countInst % 4 == 0) {  //reverse_output
 									fourInst.push_back(ass.transformAssembles(temp));
 									int i = 4;
 									while (i--){
@@ -63,7 +64,9 @@ int main(){
 									fourInst.clear();
 								}
 								else
-									fourInst.push_back(ass.transformAssembles(temp));
+									fourInst.push_back(ass.transformAssembles(temp));*/
+								fout << ass.transformAssembles(temp).substr(0, 8) << endl;
+								fout << ass.transformAssembles(temp).substr(8, 8) << endl;
 #else	
 								fout << ass.transformAssembles(temp) << endl;
 #endif
@@ -75,7 +78,7 @@ int main(){
 						Assembler ass = Assembler(PE, intIteration, intLength,intII);
 						countInst++;
 #ifdef HEX_OUTPUT
-						if (countInst % 4 == 0) {
+						/*if (countInst % 4 == 0) { //reverse_output
 							fourInst.push_back(ass.transformAssembles(temp));
 							int i = 4;
 							while (i--) {
@@ -85,7 +88,9 @@ int main(){
 							fourInst.clear();
 					}
 						else
-							fourInst.push_back(ass.transformAssembles(temp));
+							fourInst.push_back(ass.transformAssembles(temp));*/
+						fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
+						fout << ass.transformAssembles(temp).substr(8, 8)<<endl;
 #else	
 						fout << ass.transformAssembles(temp) << endl;
 #endif
@@ -96,7 +101,7 @@ int main(){
 					Assembler ass = Assembler(PE, 0, 1,0);
 					countInst++;
 #ifdef HEX_OUTPUT
-					if (countInst % 4 == 0) {
+					/*if (countInst % 4 == 0) { //reverse_output
 						fourInst.push_back(ass.transformAssembles(temp));
 						int i = 4;
 						while (i--) {
@@ -106,7 +111,9 @@ int main(){
 						fourInst.clear();
 					}
 					else
-						fourInst.push_back(ass.transformAssembles(temp));
+						fourInst.push_back(ass.transformAssembles(temp));*/
+					fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
+					fout << ass.transformAssembles(temp).substr(8, 8)<<endl;
 #else	
 					fout << ass.transformAssembles(temp) << endl;
 #endif
