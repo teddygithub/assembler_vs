@@ -661,7 +661,7 @@ void Assembler::transformOperands(StringList &operands)
 			//in1 = "00000000";
 			in2 = operands.at(1);
 			transformIn(in2);
-			size = 1;
+			size = 2;
 		}
 		else {
 			in2 = operands.at(1);
