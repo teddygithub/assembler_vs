@@ -659,9 +659,9 @@ void Assembler::transformOperands(StringList &operands)
 		if (opcode == "00001") {//route
 			transformIn(in1);
 			//in1 = "00000000";
-			in2 = operands.at(1);
-			transformIn(in2);
-			size = 2;
+			//in2 = operands.at(1);
+			//transformIn(in2);
+			size = 1;
 		}
 		else {
 			in2 = operands.at(1);
