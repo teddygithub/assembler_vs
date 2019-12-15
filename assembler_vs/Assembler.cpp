@@ -817,42 +817,43 @@ string Assembler::transformAssembles(string &temp)
 
 	string transformed;
 	if (type == 0) { // ALU
-#ifdef  HEX_OUTPUT
-		transformed = ConfigExtend +Func + in1 +  in2 +  in3 +  in4 + 
-			Imm +  out1 +  out2 +  out3 +  iteration +  opcode;
-		string result("");
-		for (int j = 0; j != 16; j++)
-		{
-			int dec = B2D(transformed.substr(4 * j, 4));
-			string hex = D2H(dec);
-			result = result + hex;
+		if (Assembler::ifHEX) {
+			transformed = ConfigExtend + Func + in1 + in2 + in3 + in4 +
+				Imm + out1 + out2 + out3 + iteration + opcode;
+			string result("");
+			for (int j = 0; j != 16; j++)
+			{
+				int dec = B2D(transformed.substr(4 * j, 4));
+				string hex = D2H(dec);
+				result = result + hex;
+			}
+			transformed = result;
 		}
-		transformed = result;
-#else
-		transformed = ConfigExtend + "_" + Func + "_" + in1 + "_" + in2 + "_" + in3 + "_" + in4 + "_" +
-			Imm + "_" + out1 + "_" + out2 + "_" + out3 + "_" + iteration + "_" + opcode;
-#endif //  HEX_OUTPUT
-
-		
+		else {
+			transformed = ConfigExtend + "_" + Func + "_" + in1 + "_" + in2 + "_" + in3 + "_" + in4 + "_" +
+				Imm + "_" + out1 + "_" + out2 + "_" + out3 + "_" + iteration + "_" + opcode;
+		}	
 	}
+
 	else if (type == 1) { //LS
-#ifdef HEX_OUTPUT
-		transformed = ConfigExtend +  Func +  AddrMem + DirectAddrMem
-			+  InMem + Offset +  "000"  + out1 +  "00000001"
-			+  iteration + "000" +  opcode;
-		string result("");
-		for (int j = 0; j != 16; j++)
-		{
-			int dec = B2D(transformed.substr(4 * j, 4));
-			string hex = D2H(dec);
-			result = result + hex;
-	    }
-		transformed = result;
-#else
-		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
-			+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_1"
-			+ "_" + iteration + "_" + "000" + "_" + opcode;
-#endif // HEX_OUTPUT
+		if (Assembler::ifHEX) {
+			transformed = ConfigExtend + Func + AddrMem + DirectAddrMem
+				+ InMem + Offset + "000" + out1 + "00000001"
+				+ iteration + "000" + opcode;
+			string result("");
+			for (int j = 0; j != 16; j++)
+			{
+				int dec = B2D(transformed.substr(4 * j, 4));
+				string hex = D2H(dec);
+				result = result + hex;
+			}
+			transformed = result;
+		}
+		else {
+			transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
+				+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_1"
+				+ "_" + iteration + "_" + "000" + "_" + opcode;
+		}
 	}
 	else if (type == 2) { //top
 		Index_PE = IntToBinaryString(PE_ID, 8);	
@@ -871,27 +872,24 @@ string Assembler::transformAssembles(string &temp)
 		Count = operands.at(6);
 		int intCount = atof(Count.c_str());
 		Count = IntToBinaryString(intCount, 6);
-#ifdef  HEX_OUTPUT
-		transformed = ConfigExtend +  Func +  Task_PackageNum +  "000" + Package_Index + "000" +
-			Index_PE +  Iteration_PEA + Iteration_PE + 
-			Initial_Idle +  Iteration_Line + "000000000" + Count;
-		string result("");
-		for (int j = 0; j != 16; j++)
-		{
-			int dec = B2D(transformed.substr(4 * j, 4));
-			string hex = D2H(dec);
-			result = result + hex;
+		if (Assembler::ifHEX) {
+			transformed = ConfigExtend + Func + Task_PackageNum + "000" + Package_Index + "000" +
+				Index_PE + Iteration_PEA + Iteration_PE +
+				Initial_Idle + Iteration_Line + "000000000" + Count;
+			string result("");
+			for (int j = 0; j != 16; j++)
+			{
+				int dec = B2D(transformed.substr(4 * j, 4));
+				string hex = D2H(dec);
+				result = result + hex;
+			}
+			transformed = result;
 		}
-		transformed = result;
-#else
-		transformed = ConfigExtend + "_" + Func + "_" + Task_PackageNum + "_" + "000" + "_" + Package_Index + "_" + "000" +
-			"_" + Index_PE + "_" + Iteration_PEA + "_" + Iteration_PE + "_" +
-			Initial_Idle + "_" + Iteration_Line + "_" + "00_0_000000" + "_" + Count;
-#endif //  HEX_OUTPUT
-
-		
+		else {
+			transformed = ConfigExtend + "_" + Func + "_" + Task_PackageNum + "_" + "000" + "_" + Package_Index + "_" + "000" +
+				"_" + Index_PE + "_" + Iteration_PEA + "_" + Iteration_PE + "_" +
+				Initial_Idle + "_" + Iteration_Line + "_" + "00_0_000000" + "_" + Count;
+		}
 	}
 	return transformed;
 }
-
-

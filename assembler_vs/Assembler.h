@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#define HEX_OUTPUT
+//#define HEX_OUTPUT
 using namespace std;
 typedef vector<string> StringList;
 typedef vector<StringList> InstructionList;
@@ -23,7 +23,8 @@ public:
 	void transformOperands(StringList &);
 	int  groupPELocation(int PE_ID);
 	string transformAssembles(string &);
-private:
+	static bool ifHEX;
+private:	
 	int PE_ID;
 	int locaton;
 	int intIteration;
