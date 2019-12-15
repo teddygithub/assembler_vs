@@ -273,7 +273,7 @@ void Assembler::transformOpcode(string &opcode)
 	else if (opcode == "%xor") {
 		opcode = "01000";
 	}
-	else if (opcode == "%abs") {
+	else if (opcode == "%not") {
 		opcode = "01001";
 	}
 	else if (opcode == "%sel") {
@@ -658,9 +658,10 @@ void Assembler::transformOperands(StringList &operands)
 		transformIn(in1);
 		if (opcode == "00001") {//route
 			transformIn(in1);
-			//in1 = "00000000";
-			//in2 = operands.at(1);
-			//transformIn(in2);
+			size = 1;
+		}
+		else if (opcode == "01001") {
+			transformIn(in1);
 			size = 1;
 		}
 		else {
