@@ -1,0 +1,280 @@
+
+PE[0]
+%top 0,0,0,0,21,0,4
+//iteration=31|II=5
+%sub PE0left,PE0righ
+//iteration=31|II=5
+%sub PE0left,PE0righ
+//iteration=31|II=5
+%sub PE0left,PE0righ
+//iteration=31|II=5
+%sub PE0left,PE0righ
+
+PE[1]
+%top 0,0,0,0,14,0,4
+//iteration=31|II=0
+%load SM560,0
+//iteration=31|II=0
+%load SM561,0
+//iteration=31|II=0
+%load SM562,0
+//iteration=31|II=0
+%load SM563,0
+
+PE[2]
+%top 0,0,0,0,15,0,4
+//iteration=31|II=0
+%load SM624,0
+//iteration=31|II=0
+%load SM625,0
+//iteration=31|II=0
+%load SM626,0
+//iteration=31|II=0
+%load SM627,0
+
+PE[3]
+%top 0,0,0,0,23,0,4
+//iteration=31|II=5
+%router PE0lete
+//iteration=31|II=5
+%router PE0lete
+//iteration=31|II=5
+%router PE0lete
+//iteration=31|II=5
+%router PE0lete
+
+PE[4]
+%top 0,0,0,0,9,0,4
+//iteration=31|II=0
+%load SM512,0
+//iteration=31|II=0
+%load SM513,0
+//iteration=31|II=0
+%load SM514,0
+//iteration=31|II=0
+%load SM515,0
+
+PE[5]
+%top 0,0,0,0,16,0,4
+//iteration=31|II=4
+%mul PE0left,PE0di2c
+//iteration=31|II=4
+%mul PE0left,PE0di2c
+//iteration=31|II=4
+%mul PE0left,PE0di2c
+//iteration=31|II=4
+%mul PE0left,PE0di2c
+
+PE[6]
+%top 0,0,0,0,5,0,4
+//iteration=31|II=0
+%load SM700,0
+//iteration=31|II=0
+%load SM700,0
+//iteration=31|II=0
+%load SM700,0
+//iteration=31|II=0
+%load SM700,0
+
+PE[7]
+%top 0,0,0,0,19,0,4
+//iteration=31|II=5
+%arl PE0di2r,IM15
+//iteration=31|II=5
+%arl PE0di2r,IM15
+//iteration=31|II=5
+%arl PE0di2r,IM15
+//iteration=31|II=5
+%arl PE0di2r,IM15
+
+PE[15]
+%top 0,0,0,0,5,0,4
+//iteration=31|II=0
+%load SM528,0
+//iteration=31|II=0
+%load SM529,0
+//iteration=31|II=0
+%load SM530,0
+//iteration=31|II=0
+%load SM531,0
+
+PE[16]
+%top 0,0,0,0,10,0,4
+//iteration=31|II=5
+%arl PE0down,IM9
+//iteration=31|II=5
+%arl PE0down,IM9
+//iteration=31|II=5
+%arl PE0down,IM9
+//iteration=31|II=5
+%arl PE0down,IM9
+
+PE[21]
+%top 0,0,0,0,14,0,4
+//iteration=31|II=5
+%add PE0righ,PE0rite
+//iteration=31|II=5
+%add PE0righ,PE0rite
+//iteration=31|II=5
+%add PE0righ,PE0rite
+//iteration=31|II=5
+%add PE0righ,PE0rite
+
+PE[22]
+%top 0,0,0,0,12,0,4
+//iteration=31|II=5
+%sll PE0lete,IM15
+//iteration=31|II=5
+%sll PE0lete,IM15
+//iteration=31|II=5
+%sll PE0lete,IM15
+//iteration=31|II=5
+%sll PE0lete,IM15
+
+PE[23]
+%top 0,0,0,0,12,0,4
+//iteration=31|II=5
+%add PE0upup,PE0righ
+//iteration=31|II=5
+%add PE0upup,PE0righ
+//iteration=31|II=5
+%add PE0upup,PE0righ
+//iteration=31|II=5
+%add PE0upup,PE0righ
+
+PE[24]
+%top 0,0,0,0,7,0,4
+//iteration=31|II=4
+%mul PE0left,PE0down
+//iteration=31|II=4
+%mul PE0left,PE0down
+//iteration=31|II=4
+%mul PE0left,PE0down
+//iteration=31|II=4
+%mul PE0left,PE0down
+
+PE[31]
+%top 0,0,0,0,0,0,4
+//iteration=31|II=0
+%load SM576,0
+//iteration=31|II=0
+%load SM577,0
+//iteration=31|II=0
+%load SM578,0
+//iteration=31|II=0
+%load SM579,0
+
+PE[32]
+%top 0,0,0,0,0,0,4
+//iteration=31|II=0
+%load SM0,1
+//iteration=31|II=0
+%load SM32,1
+//iteration=31|II=0
+%load SM64,1
+//iteration=31|II=0
+%load SM96,1
+
+PE[56]
+%top 0,0,0,0,23,0,4
+//iteration=31|II=5
+%sub PE0down,IM0
+//iteration=31|II=5
+%sub PE0down,IM0
+//iteration=31|II=5
+%sub PE0down,IM0
+//iteration=31|II=5
+%sub PE0down,IM0
+
+PE[57]
+%top 0,0,0,0,29,0,4
+//iteration=31|II=4
+%store SM624,PE0righ,0
+//iteration=31|II=4
+%store SM625,PE0righ,0
+//iteration=31|II=4
+%store SM626,PE0righ,0
+//iteration=31|II=4
+%store SM627,PE0righ,0
+
+PE[58]
+%top 0,0,0,0,22,0,8
+//iteration=0|II=1
+%router PE0down
+//iteration=31|II=0
+%add PE0righ,PE0self
+//iteration=0|II=1
+%router PE0down
+//iteration=31|II=0
+%add PE0righ,PE0self
+//iteration=0|II=1
+%router PE0down
+//iteration=31|II=0
+%add PE0righ,PE0self
+//iteration=0|II=1
+%router PE0down
+//iteration=31|II=0
+%add PE0righ,PE0self
+
+PE[59]
+%top 0,0,0,0,25,0,4
+//iteration=31|II=5
+%sel PE0down,IM0,PE2lete
+//iteration=31|II=5
+%sel PE0down,IM0,PE2lete
+//iteration=31|II=5
+%sel PE0down,IM0,PE2lete
+//iteration=31|II=5
+%sel PE0down,IM0,PE2lete
+
+PE[60]
+%top 0,0,0,0,27,0,4
+//iteration=31|II=4
+%mul PE0left,PE0left
+//iteration=31|II=4
+%mul PE0left,PE0left
+//iteration=31|II=4
+%mul PE0left,PE0left
+//iteration=31|II=4
+%mul PE0left,PE0left
+
+PE[61]
+%top 0,0,0,0,24,0,8
+//iteration=0|II=1
+%router PE0righ
+//iteration=31|II=0
+%add PE0left,PE0self
+//iteration=0|II=1
+%router PE0righ
+//iteration=31|II=0
+%add PE0left,PE0self
+//iteration=0|II=1
+%router PE0righ
+//iteration=31|II=0
+%add PE0left,PE0self
+//iteration=0|II=1
+%router PE0righ
+//iteration=31|II=0
+%add PE0left,PE0self
+
+PE[62]
+%top 0,0,0,0,17,0,4
+//iteration=31|II=0
+%load SM640,0
+//iteration=31|II=0
+%load SM641,0
+//iteration=31|II=0
+%load SM642,0
+//iteration=31|II=0
+%load SM643,0
+
+PE[63]
+%top 0,0,0,0,31,0,4
+//iteration=31|II=4
+%store SM640,PE0di2r,0
+//iteration=31|II=4
+%store SM641,PE0di2r,0
+//iteration=31|II=4
+%store SM642,PE0di2r,0
+//iteration=31|II=4
+%store SM643,PE0di2r,0

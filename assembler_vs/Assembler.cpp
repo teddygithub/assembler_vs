@@ -658,10 +658,12 @@ void Assembler::transformOperands(StringList &operands)
 		transformIn(in1);
 		if (opcode == "00001") {//route
 			transformIn(in1);
+			in2 = "00000000";
 			size = 1;
 		}
 		else if (opcode == "01001") {
-			transformIn(in1);
+			transformIn(in1);		
+			in2 = "00000000";
 			size = 1;
 		}
 		else {
