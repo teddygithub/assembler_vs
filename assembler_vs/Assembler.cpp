@@ -309,7 +309,7 @@ void Assembler::transformIndex(string &index) {
 	//	return 0;//左上顶角
 	//	return 1;//右上顶角
 	//	return 2;//左下顶角
-	//	return 3;//右上顶角
+	//	return 3;//右下顶角
 	//	return 4;//上边沿
 	//	return 5;//下边沿
 	//	return 6;//左边沿
@@ -657,8 +657,9 @@ void Assembler::transformOperands(StringList &operands)
 		in1 = operands.at(0);
 		transformIn(in1);
 		if (opcode == "00001") {//route
-			transformIn(in1);
-			in2 = "00000000";
+			in2 = in1;
+			transformIn(in2);
+			in1 = "00000000";
 			size = 1;
 		}
 		else if (opcode == "01001") {
@@ -775,16 +776,16 @@ int Assembler::groupPELocation(int PE_ID)
 	else if (PE_ID % 8 == 7) {
 		return 7;//右边沿
 	}
-	else if (1 <= PE_ID % 8 <= 3 && 1 <= PE_ID / 8 <= 3) {
+	else if (1 <= PE_ID % 8 && PE_ID % 8 <= 3 && 1 <= PE_ID / 8 && PE_ID / 8 <= 3) {
 		return 8;//左上区
 	}
-	else if (1 <= PE_ID % 8 <= 3 && 4 <= PE_ID / 8 <= 6) {
+	else if (1 <= PE_ID % 8 && PE_ID % 8 <= 3 && 4 <= PE_ID / 8 && PE_ID / 8<= 6) {
 		return 9;//左下区
 	}
-	else if (4 <= PE_ID % 8 <= 6 && 1 <= PE_ID / 8 <= 3) {
+	else if (4 <= PE_ID % 8 && PE_ID % 8 <= 6 && 1 <= PE_ID / 8 && PE_ID / 8<= 3) {
 		return 10;//右上区
 	}
-	else if (4 <= PE_ID % 8 <= 6 && 4 <= PE_ID / 8 <= 6) {
+	else if (4 <= PE_ID % 8 && PE_ID % 8 <= 6 && 4 <= PE_ID / 8 && PE_ID / 8 <= 6) {
 		return 11;//右下区
 	}
 }

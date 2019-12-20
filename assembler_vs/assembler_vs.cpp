@@ -24,7 +24,7 @@ int main(int argc, char** argv){
 	Assembler::clearComments(inputs);
 	InstructionList instructionList;
 	Assembler::groupInstructions(instructionList,inputs);
-	ofstream fout("output.txt");
+	ofstream fout("ConfigPack_conven1_assemble_out.txt");
 	//for (int i = 0; i < inputs.size(); i++) {
 	//	string temp = inputs.at(i);
 	//	fout <<Assembler::transformAssembles(temp)<<endl;
