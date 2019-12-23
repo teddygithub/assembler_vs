@@ -126,24 +126,26 @@ def ALU_in2(opcode, line, routerlabel):
             if line[11:14] == [0, 0, 0]:
                 LR_index = line[18] * (2 ** 0) + line[17] * (2 ** 1) + line[16] * (2 ** 2) + line[15] * (2 ** 3) + line[
                     14] * (2 ** 4)
-                aluin2 = ',LR' + str(LR_index)
+                aluin2 = 'LR' + str(LR_index)
             elif line[11:14] == [0, 0, 1]:
                 GR_index = line[18] * (2 ** 0) + line[17] * (2 ** 1) + line[16] * (2 ** 2) + line[15] * (2 ** 3) + line[
                     14] * (2 ** 4)
-                aluin2 = ',GR' + str(GR_index)
+                aluin2 = 'GR' + str(GR_index)
             elif line[11:14] == [0, 1, 0]:
                 if line[14] == 0 or line[14] == 1:
-                    aluin2 = ',PE0' + routerlabel
+                    aluin2 = 'PE0' + routerlabel
             elif line[11:14] == [0, 1, 1]:
                 if line[14] == 0 or line[14] == 1:
-                    aluin2 = ',PE0self'
+                    aluin2 = 'PE0self'
             elif line[11:14] == [1, 0, 0]:
                 if line[14] == 0 or line[14] == 1:
-                    aluin2 = ',PE1' + routerlabel
+                    aluin2 = 'PE1' + routerlabel
         elif line[33] == 1:
             immediate = line[18] * (2 ** 0) + line[17] * (2 ** 1) + line[16] * (2 ** 2) + line[15] * (2 ** 3) + line[
                 14] * (2 ** 4) + line[13] * (2 ** 5) + line[12] * (2 ** 6) + line[11] * (2 ** 7)
-            aluin2 = ',IM' + str(immediate)
+            aluin2 = 'IM' + str(immediate)
+        if opcode !='%router':
+            aluin2 = ',' + aluin2
     else:
         aluin2 = ''
     return aluin2

@@ -1,0 +1,49 @@
+PE[32]
+%top 0,0,0,0,0,0,1
+//iteration=0|II=0
+%load SM257,1
+
+PE[58]
+%top 0,0,0,0,0,0,1
+//iteration=0|II=0
+%load SM0,2
+
+PE[5]
+%top 0,0,0,0,0,0,1
+//iteration=0|II=0
+%load SM386,0
+
+PE[56]
+%top 0,0,0,0,7,0,1
+//iteration=0|II=5
+%xor PE0di2r,PE0di3c,GR0
+
+PE[2]
+%top 0,0,0,0,7,0,1
+//iteration=0|II=5
+%router PE0upup,GR1
+
+PE[7]
+%top 0,0,0,0,7,0,1
+//iteration=0|II=5
+%or PE0di2r,IM0
+
+PE[0]
+%top 0,0,0,0,9,0,1
+//iteration=0|II=5
+%sel PE0upup,PE0di2r,PE2left,GR2
+
+PE[1]
+%top 0,0,0,0,11,0,3
+//iteration=0|II=0
+%store SM410,GR0,0
+
+PE[3]
+%top 0,0,0,0,11,0,3
+//iteration=0|II=0
+%store SM411,GR1,0
+
+PE[4]
+%top 0,0,0,0,13,0,3
+//iteration=0|II=0
+%store SM412,GR2,0
