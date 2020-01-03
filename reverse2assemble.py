@@ -1,7 +1,7 @@
 import sys
 def _main():
-    f = open('ConfigPack_conven1_assemble_out.txt','r', encoding='utf-8')
-    s = open('ConfigPack_conven1_assemble.txt','w', encoding='utf-8')
+    f = open('test_bin.txt','r', encoding='utf-8')
+    s = open('test_assemble.txt','w', encoding='utf-8')
     result = list()
     for line in f.readlines():
         if line == '\n':
@@ -468,7 +468,9 @@ def router_label(PEnum, index):
                 (PEnum > 32 and PEnum < 39) or (PEnum > 40 and PEnum < 47) or (PEnum > 48 and PEnum < 55):
             routerlabel = 'rite'
         else:
-            sys.exit(0)
+            routerlabel = 'none'
+    else:
+        routerlabel = 'none'
 
     return routerlabel
 
