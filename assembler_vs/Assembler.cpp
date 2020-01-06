@@ -649,6 +649,27 @@ void Assembler::transformIn4(string &temp)
 	}
 }
 
+void setIncreaseFlag(int& intOffset, string& Increase_Flag) {
+	if (intOffset < 0)
+	{
+		Increase_Flag = "10";
+	}
+	else if (intOffset == 0)
+	{
+		Increase_Flag = "00";
+	}
+	else
+	{
+		Increase_Flag = "01";
+	}
+}
+
+void setIItype(int& II, string& IItype) {
+		if (II < 0)
+			IItype = "1";
+		else
+			IItype = "0";
+}
 void Assembler::transformOperands(StringList &operands)
 {
 	if (type == 0) { //ALU
@@ -703,6 +724,7 @@ void Assembler::transformOperands(StringList &operands)
 		if (intLength == 1) {
 			string iter_num = IntToBinaryString(intIteration, 5);
 			string iter_II = IntToBinaryString(intII, 3);
+			setIItype(intII, IItype);
 			iteration = "00" + iter_num + iter_II;
 		}
 		else {
@@ -715,6 +737,7 @@ void Assembler::transformOperands(StringList &operands)
 		if (intLength == 1) {
 			string iter_num = IntToBinaryString(intIteration, 5);
 			string iter_II = IntToBinaryString(intII, 3);
+			setIItype(intII, IItype);
 			iteration = "00" + iter_num + iter_II;
 		}
 		else {
@@ -726,7 +749,10 @@ void Assembler::transformOperands(StringList &operands)
 			AddrMem = operands.at(0);
 			transformIn(AddrMem);
 			int intOffset = atoi(operands.at(1).c_str());
-			Offset = IntToBinaryString(intOffset, 4);
+			Offset = IntToBinaryString(intOffset, 5);
+			Offset_extend = Offset[4];
+			Offset = Offset.substr(1, 4);
+			setIncreaseFlag(intOffset, Increase_Flag);			
 			InMem = "00000000";
 		}
 		else if (opcode == "01") { //Store		
@@ -734,7 +760,10 @@ void Assembler::transformOperands(StringList &operands)
 			transformIn(AddrMem);
 			InMem = operands.at(1);
 			int intOffset = atoi(operands.at(2).c_str());
-			Offset = IntToBinaryString(intOffset, 4);
+			Offset = IntToBinaryString(intOffset, 5);
+			Offset_extend = Offset[4];
+			Offset = Offset.substr(1, 4);
+			setIncreaseFlag(intOffset, Increase_Flag);
 			transformIn(AddrMem);
 			transformIn(InMem);
 			size = 3;
@@ -823,7 +852,7 @@ string Assembler::transformAssembles(string &temp)
 	if (type == 0) { // ALU
 		if (Assembler::ifHEX) {
 			transformed = ConfigExtend + Func + in1 + in2 + in3 + in4 +
-				Imm + out1 + out2 + out3 + iteration + opcode;
+				Imm + out1 + out2 + IItype + iteration + opcode;
 			string result("");
 			for (int j = 0; j != 16; j++)
 			{
@@ -835,14 +864,14 @@ string Assembler::transformAssembles(string &temp)
 		}
 		else {
 			transformed = ConfigExtend + "_" + Func + "_" + in1 + "_" + in2 + "_" + in3 + "_" + in4 + "_" +
-				Imm + "_" + out1 + "_" + out2 + "_" + out3 + "_" + iteration + "_" + opcode;
+				Imm + "_" + out1 + "_" + out2 + "_" + IItype + "_" + iteration + "_" + opcode;
 		}	
 	}
 
 	else if (type == 1) { //LS
 		if (Assembler::ifHEX) {
 			transformed = ConfigExtend + Func + AddrMem + DirectAddrMem
-				+ InMem + Offset + "000" + out1 + "00000001"
+				+ InMem + Offset + Offset_extend+"00" + out1 + "00000"+IItype + Increase_Flag
 				+ iteration + "000" + opcode;
 			string result("");
 			for (int j = 0; j != 16; j++)
@@ -855,7 +884,7 @@ string Assembler::transformAssembles(string &temp)
 		}
 		else {
 			transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + DirectAddrMem
-				+ "_" + InMem + "_" + Offset + "_" + "000" + "_" + out1 + "_" + "0000000_1"
+				+ "_" + InMem + "_" + Offset + "_" + Offset_extend+"00" + "_" + out1 + "_" + "00000_"+IItype + Increase_Flag
 				+ "_" + iteration + "_" + "000" + "_" + opcode;
 		}
 	}

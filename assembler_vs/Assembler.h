@@ -46,6 +46,9 @@ private:
 	string DirectAddrMem;
 	string InMem ;
 	string Offset;
+	string Offset_extend;
+	string Increase_Flag;
+	string IItype;
 	string Task_PackageNum;
 	string Package_Index;
 	string Index_PE ;
