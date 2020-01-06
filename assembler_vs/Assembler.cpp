@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Assembler.h"
 //#define HEX_OUTPUT
 Assembler::Assembler(int id, int ii, int ll, int II)
@@ -79,7 +79,7 @@ long long int B2D(string pre)
 	int result = 0;
 	for (int i = 0; i < length; i++)
 	{
-		result += ((charToDigit(pre[i]))*pow(2, length - 1 - i));
+		result += (int)((charToDigit(pre[i]))*pow(2, length - 1 - i));
 	}
 	return result;
 }
@@ -108,7 +108,7 @@ string D2H(long long int pre) {
 	}
 	string res = oss.str();
 	oss.str("");//清空原数据流
-	for (int i = 0; i < res.length(); i++) {
+	for (int i = 0; i != res.length(); i++) {
 		oss << res[res.length() - i - 1];
 	}
 	return oss.str();
@@ -208,7 +208,7 @@ void Assembler::groupInstructions(InstructionList & instructionList, StringList 
 
 void Assembler::clearComments(StringList &sL)
 {
-	for (int i = 0; i < sL.size(); i++) {
+	for (int i = 0; i != sL.size(); i++) {
 		if (sL[i] == "") {
 			sL.erase(i + sL.begin());
 			i--;
@@ -219,7 +219,7 @@ void Assembler::clearComments(StringList &sL)
 		}
 		else {
 			string *temp = &sL[i];
-			for (int j = 0; j < temp->size(); j++) {
+			for (int j = 0; j != temp->size(); j++) {
 				if ((*temp)[j] == ' '&& j==0) {
 					temp->erase(j,1);
 					j--;
@@ -546,10 +546,10 @@ string IntToBinaryString(int n,int length) {
 void Assembler::tranformOut(string &temp)
 {
 	string number = "";
-	for (int i = 2; i < temp.size(); i++) {
+	for (int i = 2; i != temp.size(); i++) {
 		number = number + temp[i];
 	}
-	int Number = atof(number.c_str());
+	int Number = (int)atof(number.c_str());
 	if (temp[0] == 'L' && temp[1] == 'R') {
 		temp = "0000" + D2B(Number);
 	}
@@ -571,7 +571,7 @@ void Assembler::transformIn(string &temp)
 			source = "100";
 		}
 		string index;
-		for (int i = 3; i < temp.size(); i++) {
+		for (int i = 3; i != temp.size(); i++) {
 			index = index + temp[i];
 		}
 		
@@ -594,34 +594,34 @@ void Assembler::transformIn(string &temp)
 	else if (temp[0] == 'L' && temp[1] == 'R') {
 		string source = "000";
 		string index = "";
-		for (int i = 2; i < temp.size(); i++) {
+		for (int i = 2; i != temp.size(); i++) {
 			index = index + temp[i];
 		}
-		int Number = atof(index.c_str());
+		int Number = (int)atof(index.c_str());
 		temp = source + "00" + D2B(Number);
 	}
 	else if (temp[0] == 'G' && temp[1] == 'R') {
 		string source = "001";
 		string index = "";
-		for (int i = 2; i < temp.size(); i++) {
+		for (int i = 2; i !=temp.size(); i++) {
 			index = index + temp[i];
 		}
-		int Number = atof(index.c_str());
+		int Number = (int)atof(index.c_str());
 		temp = source + "00" + D2B(Number);
 	}
 	else if (temp[0] == 'I' && temp[1] == 'M') {		
 		string index;
 		Imm = "1";		
-		for (int i = 2; i < temp.size(); i++) {
+		for (int i = 2; i != temp.size(); i++) {
 			index = index + temp[i];
 		}
-		int Number = atof(index.c_str());
+		int Number = (int)atof(index.c_str());
 		string binary = IntToBinaryString(Number, 8);
 		temp = binary;
 	}
 	else if (temp[0] == 'S' && temp[1] == 'M') {
 		string SM;
-		for (int i = 2; i < temp.size(); i++) {
+		for (int i = 2; i !=temp.size(); i++) {
 			SM = SM + temp[i];
 		}
 		int Number = atoi(SM.c_str());
@@ -635,7 +635,7 @@ void Assembler::transformIn4(string &temp)
 {
 	string out1_or_out2 = temp.substr(2, 1);
 	string index;
-	for (int i = 3; i < temp.size(); i++) {
+	for (int i = 3; i != temp.size(); i++) {
 		index = index + temp[i];
 	}
 	
@@ -712,7 +712,7 @@ void Assembler::transformOperands(StringList &operands)
 		else {
 			in4 = "000000";
 		}
-		if (operands.size() > size) {
+		if ((int)operands.size() > size) {
 			out1 = operands.at(size);
 			tranformOut(out1);
 		}
@@ -768,7 +768,7 @@ void Assembler::transformOperands(StringList &operands)
 			transformIn(InMem);
 			size = 3;
 		}
-		if (operands.size() > size) {
+		if ((int)operands.size() > size) {
 			out1 = operands.at(size);
 			tranformOut(out1);
 		}
@@ -817,6 +817,7 @@ int Assembler::groupPELocation(int PE_ID)
 	else if (4 <= PE_ID % 8 && PE_ID % 8 <= 6 && 4 <= PE_ID / 8 && PE_ID / 8 <= 6) {
 		return 11;//右下区
 	}
+	return 0;
 }
 
 string Assembler::transformAssembles(string &temp)
@@ -856,7 +857,7 @@ string Assembler::transformAssembles(string &temp)
 			string result("");
 			for (int j = 0; j != 16; j++)
 			{
-				int dec = B2D(transformed.substr(4 * j, 4));
+				int dec = (int)B2D(transformed.substr(4 * j, 4));
 				string hex = D2H(dec);
 				result = result + hex;
 			}
@@ -876,7 +877,7 @@ string Assembler::transformAssembles(string &temp)
 			string result("");
 			for (int j = 0; j != 16; j++)
 			{
-				int dec = B2D(transformed.substr(4 * j, 4));
+				int dec = (int)B2D(transformed.substr(4 * j, 4));
 				string hex = D2H(dec);
 				result = result + hex;
 			}
@@ -891,19 +892,19 @@ string Assembler::transformAssembles(string &temp)
 	else if (type == 2) { //top
 		Index_PE = IntToBinaryString(PE_ID, 8);	
 		Task_PackageNum = operands.at(0); //0开始计数
-		Task_PackageNum = IntToBinaryString(atof(Task_PackageNum.c_str()), 5);
+		Task_PackageNum = IntToBinaryString((int)atof(Task_PackageNum.c_str()), 5);
 		Package_Index = operands.at(1); //0开始计数
-		Package_Index = IntToBinaryString(atof(Package_Index.c_str()), 5);
+		Package_Index = IntToBinaryString((int)atof(Package_Index.c_str()), 5);
 		Iteration_PEA = operands.at(2); 
-		Iteration_PEA = IntToBinaryString(atof(Iteration_PEA.c_str()), 7);
+		Iteration_PEA = IntToBinaryString((int)atof(Iteration_PEA.c_str()), 7);
 		Iteration_PE = operands.at(3);
-		Iteration_PE = IntToBinaryString(atof(Iteration_PE.c_str()), 7);
+		Iteration_PE = IntToBinaryString((int)atof(Iteration_PE.c_str()), 7);
 		Initial_Idle = operands.at(4);
-		Initial_Idle = IntToBinaryString(atof(Initial_Idle.c_str()), 6);
+		Initial_Idle = IntToBinaryString((int)atof(Initial_Idle.c_str()), 6);
 		Iteration_Line = operands.at(5);
-		Iteration_Line = IntToBinaryString(atof(Iteration_PE.c_str()), 2);
+		Iteration_Line = IntToBinaryString((int)atof(Iteration_PE.c_str()), 2);
 		Count = operands.at(6);
-		int intCount = atof(Count.c_str());
+		int intCount = (int)atof(Count.c_str());
 		Count = IntToBinaryString(intCount, 6);
 		if (Assembler::ifHEX) {
 			transformed = ConfigExtend + Func + Task_PackageNum + "000" + Package_Index + "000" +
@@ -912,7 +913,7 @@ string Assembler::transformAssembles(string &temp)
 			string result("");
 			for (int j = 0; j != 16; j++)
 			{
-				int dec = B2D(transformed.substr(4 * j, 4));
+				int dec = (int)B2D(transformed.substr(4 * j, 4));
 				string hex = D2H(dec);
 				result = result + hex;
 			}
