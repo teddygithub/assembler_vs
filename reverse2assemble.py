@@ -61,11 +61,10 @@ def LSU_AddrMem(line, routerlabel):
         if line[6] == 0 or line[6] == 1:
             lsuaddrmem = 'PE0self'
     elif line[3:6] == [1, 0, 0]:
-        if line[6] == 0 or line[6] == 1:
-            SMindex = line[18] * (2 ** 0) + line[17] * (2 ** 1) + line[16] * (2 ** 2) + line[15] * (2 ** 3) + line[14] * (
-                    2 ** 4) + line[13] * (2 ** 5) + line[12] * (2 ** 6) + line[11] * (2 ** 7) + line[10] * (2 ** 8
-                    ) + line[9] * (2 ** 9) + line[8] * (2 ** 10) + line[7] * (2 ** 11)
-            lsuaddrmem = 'SM' + str(SMindex)
+        SMindex = line[18] * (2 ** 0) + line[17] * (2 ** 1) + line[16] * (2 ** 2) + line[15] * (2 ** 3) + line[14] * (
+                2 ** 4) + line[13] * (2 ** 5) + line[12] * (2 ** 6) + line[11] * (2 ** 7) + line[10] * (2 ** 8) + line[9] * (
+                2 ** 9) + line[8] * (2 ** 10) + line[7] * (2 ** 11) + line[6] * (2 ** 12)
+        lsuaddrmem = 'SM' + str(SMindex)
         return lsuaddrmem
 
 def LSU_InMem(opcode, line, routerlabel):
