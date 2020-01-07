@@ -1,7 +1,7 @@
 import sys
 def _main():
-    f = open('test_bin.txt','r', encoding='utf-8')
-    s = open('test_assemble.txt','w', encoding='utf-8')
+    f = open('test_bin.txt','r', encoding='utf-8') #input file (bin file)
+    s = open('test_assemble.txt','w', encoding='utf-8') #output file( assemble file)
     result = list()
     for line in f.readlines():
         if line == '\n':
@@ -92,8 +92,11 @@ def LSU_InMem(opcode, line, routerlabel):
     return lsuinmem
 
 def LSU_Offset(line):
-    offset = line[30] * (2 ** 0) + line[29] * (2 ** 1) + line[28] * (2 ** 2) + line[27] * (2 ** 3)
-    lsuoffset = ',' + str(offset)
+    offset = line[30] * (2 ** 0) + line[29] * (2 ** 1) + line[28] * (2 ** 2) + line[27] * (2 ** 3) + line[31] * (2 ** 4)
+    flag_lsu = ''
+    if line[47:49] == [1, 0]:
+        flag_lsu = '-'
+    lsuoffset = ',' + flag_lsu + str(offset)
     return lsuoffset
 
 def ALU_in1(opcode, line, routerlabel):
@@ -265,7 +268,14 @@ def iteration_length_II(line):
         Iter_Num = line[55] * (2 ** 0) + line[54] * (2 ** 1) + line[53] * (2 ** 2) + line[52] * (2 ** 3) + line[51] * (
                 2 ** 4)
         Iter_II = line[58] * (2 ** 0) + line[57] * (2 ** 1) + line[56] * (2 ** 2)
-    iterlenII = '//iteration=' + str(Iter_Num) + '|II=' + str(Iter_II)
+    flag_ii = ''
+    if line[1:3] == [1, 0]:
+        if line[46] == 1:
+            flag_ii = '-'
+    elif line[1:3] == [0,1]:
+        if line[48] == 1:
+            flag_ii = '-'
+    iterlenII = '//iteration=' + str(Iter_Num) + '|II=' + flag_ii + str(Iter_II)
     return(iterlenII)
 
 def PE_index(line):
