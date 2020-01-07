@@ -902,7 +902,7 @@ string Assembler::transformAssembles(string &temp)
 		Initial_Idle = operands.at(4);
 		Initial_Idle = IntToBinaryString((int)atof(Initial_Idle.c_str()), 6);
 		Iteration_Line = operands.at(5);
-		Iteration_Line = IntToBinaryString((int)atof(Iteration_PE.c_str()), 2);
+		Iteration_Line = IntToBinaryString((int)atof(Iteration_Line.c_str()), 2);
 		Count = operands.at(6);
 		int intCount = (int)atof(Count.c_str());
 		Count = IntToBinaryString(intCount, 6);
