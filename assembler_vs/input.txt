@@ -27,3 +27,8 @@ PE[5]
 %top 0,0,0,0,8,0,1
 //iteration=10|II=5
 %add PE0upup,PE0down,GR3
+
+PE[6]
+%top 0,0,0,0,1,0,2
+//iteration=10|II=1
+%load SM2048,1

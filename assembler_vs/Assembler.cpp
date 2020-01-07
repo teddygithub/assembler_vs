@@ -750,7 +750,7 @@ void Assembler::transformOperands(StringList &operands)
 			transformIn(AddrMem);
 			int intOffset = atoi(operands.at(1).c_str());
 			Offset = IntToBinaryString(intOffset, 5);
-			Offset_extend = Offset[4];
+			Offset_extend = Offset[0];
 			Offset = Offset.substr(1, 4);
 			setIncreaseFlag(intOffset, Increase_Flag);			
 			InMem = "00000000";
