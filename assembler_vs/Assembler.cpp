@@ -38,7 +38,7 @@ Assembler::~Assembler()
 {
 }
 
-string D2B(int &n) {
+string D2B(int n) {
 	string result;
 	switch (n)
 	{
@@ -555,7 +555,10 @@ void Assembler::tranformOut(string &temp)
 	}
 	else if (temp[0] == 'G' && temp[1] == 'R')
 	{
-		temp = "0100" + D2B(Number);
+		if (Number > 15)
+			temp = "0101" + D2B(Number - 16);
+		else
+			temp = "0100" + D2B(Number);
 	}
 }
 
