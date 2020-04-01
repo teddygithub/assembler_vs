@@ -30,6 +30,7 @@ Assembler::Assembler(int id, int ii, int ll, int II)
 	Initial_Idle_ex = "XX";
 	Iteration_Line = "XX";
 	Count = "XXXXXX";
+	Addr_loop = "X";
 	type = 0;
 	PE_ID = id;
 	locaton = groupPELocation(PE_ID);
@@ -250,17 +251,37 @@ void Assembler::transformOpcode(string &opcode,int PE_ID)
 	if (opcode == "%router") {
 		opcode = "00001";
 	}
-	else if (opcode == "%load"&& PE_ID <= 7) {
+	else if (opcode == "%loadA"&& PE_ID <= 7) {
 		opcode = "00";
+		Addr_loop = "0";
 	}
-	else if (opcode == "%load"&& PE_ID > 7) {
+	else if (opcode == "%loadB"&& PE_ID <= 7) {
+		opcode = "00";
+		Addr_loop = "1";
+	}
+	else if (opcode == "%loadA"&& PE_ID > 7) {
 		opcode = "10";
+		Addr_loop = "0";
 	}
-	else if (opcode == "%store" && PE_ID<=7) {
+	else if (opcode == "%loadB"&& PE_ID > 7) {
+		opcode = "10";
+		Addr_loop = "1";
+	}
+	else if (opcode == "%storeA" && PE_ID<=7) {
 		opcode = "01";
+		Addr_loop = "0";
 	}
-	else if (opcode == "%store" && PE_ID > 7) {
+	else if (opcode == "%storeB" && PE_ID <= 7) {
+		opcode = "01";
+		Addr_loop = "1";
+	}
+	else if (opcode == "%storeA" && PE_ID > 7) {
 		opcode = "11";
+		Addr_loop = "0";
+	}
+	else if (opcode == "%storeB" && PE_ID > 7) {
+		opcode = "11";
+		Addr_loop = "1";
 	}
 	else if (opcode == "%add") {
 		opcode = "00010";
@@ -285,6 +306,21 @@ void Assembler::transformOpcode(string &opcode,int PE_ID)
 	}
 	else if (opcode == "%umac") {
 		opcode = "10011";
+	}
+	else if (opcode == "%mrl") {
+		opcode = "10100";
+	}
+	else if (opcode == "%umrl") {
+		opcode = "10101";
+	}
+	else if (opcode == "%equal") {
+		opcode = "10110";
+	}
+	else if (opcode == "%div") {
+		opcode = "10111";
+	}
+	else if (opcode == "%udiv") {
+		opcode = "11000";
 	}
 	else if (opcode == "%and") {
 		opcode = "00110";
@@ -907,7 +943,7 @@ string Assembler::transformAssembles(string &temp)
 	else if (type == 1) { //LS
 #ifdef HEX_OUTPUT
 		transformed = ConfigExtend +  Func +  AddrMem + InMem
-			+  DirectAddrMem + Offset +  Offsetex  + out1 +  "00000" + IItype + increaseFlag
+			+  DirectAddrMem + Offset +  Offsetex  + out1 + Addr_loop + "0000" + IItype + increaseFlag
 			+  iteration + "000" +  opcode;
 		string result("");
 		for (int j = 0; j != 16; j++)
@@ -919,7 +955,7 @@ string Assembler::transformAssembles(string &temp)
 		transformed = result;
 #else
 		transformed = ConfigExtend + "_" + Func + "_" + AddrMem + "_" + InMem
-			+ "_" + DirectAddrMem + "_" + Offset + "_" + Offsetex + "_" + out1 + "_" + "00000" + "_" + IItype + "_" + increaseFlag
+			+ "_" + DirectAddrMem + "_" + Offset + "_" + Offsetex + "_" + out1 + "_" + Addr_loop + "0000" + "_" + IItype + "_" + increaseFlag
 			+ "_" + iteration + "_" + "000" + "_" + opcode;
 #endif // HEX_OUTPUT
 	}

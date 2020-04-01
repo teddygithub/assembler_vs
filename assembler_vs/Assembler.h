@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#define HEX_OUTPUT    //输出十六进制
+//#define HEX_OUTPUT    //输出十六进制
 //#define II_fromLR  //如果迭代次数大于等于32或者II大于等于8则从LR取数
 using namespace std;
 typedef vector<string> StringList;
@@ -16,7 +16,7 @@ public:
 	static StringList splitString(string &s, string &split);
 	static void groupInstructions(InstructionList &iL, StringList & sL);
 	static void clearComments(StringList&);
-	static void transformOpcode(string &,int PE_ID);
+	void transformOpcode(string &,int PE_ID);
 	void transformIn(string &);
 	void transformIn4(string &);
 	void transformIndex(string &);
@@ -59,6 +59,7 @@ private:
 	string Initial_Idle_ex;
 	string Iteration_Line ;
 	string Count;
+	string Addr_loop;
 	int type;
 };
 
