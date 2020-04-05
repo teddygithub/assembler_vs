@@ -69,8 +69,8 @@ int main(){
 								}
 								else
 									fourInst.push_back(ass.transformAssembles(temp));*/
-								fout << ass.transformAssembles(temp).substr(0, 8) << endl;
 								fout << ass.transformAssembles(temp).substr(8, 8) << endl;
+								fout << ass.transformAssembles(temp).substr(0, 8) << endl;
 #else	
 								fout << ass.transformAssembles(temp) << endl;
 #endif
@@ -93,8 +93,8 @@ int main(){
 					}
 						else
 							fourInst.push_back(ass.transformAssembles(temp));*/
-						fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
 						fout << ass.transformAssembles(temp).substr(8, 8)<<endl;
+						fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
 #else	
 						fout << ass.transformAssembles(temp) << endl;
 #endif
@@ -116,8 +116,8 @@ int main(){
 					}
 					else
 						fourInst.push_back(ass.transformAssembles(temp));*/
-					fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
 					fout << ass.transformAssembles(temp).substr(8, 8)<<endl;
+					fout << ass.transformAssembles(temp).substr(0, 8)<<endl;
 #else	
 					fout << ass.transformAssembles(temp) << endl;
 #endif
@@ -141,8 +141,8 @@ int main(){
 		}
 		i = 4;
 		while (i--) {
-			fout << fourInst[i].substr(0, 8) << endl;
 			fout << fourInst[i].substr(8, 8) << endl;
+			fout << fourInst[i].substr(0, 8) << endl;
 		}
 		fourInst.clear();
 	}
