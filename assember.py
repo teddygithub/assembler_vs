@@ -40,7 +40,7 @@ def transform_op(operation, pe_id):
         addr_loop = '1'
     elif operation == 'nop':
         opcode = '00000'
-    elif operation == 'route':
+    elif operation == 'router':
         opcode = '00001'
     elif operation == 'add':
         opcode = '00010'
@@ -333,7 +333,7 @@ def transform_in(pe_id, data_from):
     elif data_from[0:2] == 'SM':
         bin = '100' + D2B(int(data_from[2:])).zfill(13)
     elif data_from[0:2] == 'IM':
-        bin = D2B(data_from[2:]).zfill(8)
+        bin = D2B(int(data_from[2:])).zfill(8)
         Imm = '1'
     elif(data_from[0:3] == 'PE0' and data_from[4:] != 'self'):
         if data_from[3] == 'A':
@@ -477,7 +477,7 @@ def main():
             elif(line_in_PE[0:2] == '//'):
                 line_in_PE = line_in_PE.strip('//').split('|')
                 iteration = int((line_in_PE[0].split('='))[1])
-                II = int((line_in_PE[1].split('='))[1])
+                II = int((line_in_PE[2].split('='))[1])
             else:
                 line_in_PE = line_in_PE.strip('%').split(' ')
                 operation = line_in_PE[0]
@@ -532,8 +532,8 @@ def main():
                 else:
                     in_out_num = len(in_out_detail)
                     num0 = ['nop']
-                    num1 = ['route', 'not', 'clz']
-                    num2 = ['add', 'sub', 'uadd', 'usub', 'and', 'or', 'xor', 'sll', 'srl', 'arl', 'all', 'mul', 'umul',
+                    num1 = ['not', 'clz']
+                    num2 = ['router', 'add', 'sub', 'uadd', 'usub', 'and', 'or', 'xor', 'sll', 'srl', 'arl', 'all', 'mul', 'umul',
                             'equal', 'div', 'udiv']
                     num3 = ['mac', 'umac', 'mrl', 'umrl' ]
                     num4 = ['sel']
@@ -579,8 +579,8 @@ def main():
                     elif operation in num3:
                         in1 = transform_in(pe_id, in_out_detail[0])[0]
                         in2 = transform_in(pe_id, in_out_detail[1])[0]
-                        in3 = '00000000'
-                        in4 = transform_in(pe_id, in_out_detail[2])[0]
+                        in3 = transform_in(pe_id, in_out_detail[2])[0]
+                        in4 = '000000'
                         Imm = transform_in(pe_id, in_out_detail[1])[1]
                         if in_out_num == 4:
                             out1 = transform_out(in_out_detail[3])
@@ -593,8 +593,8 @@ def main():
                     elif operation in num4:
                         in1 = transform_in(pe_id, in_out_detail[0])[0]
                         in2 = transform_in(pe_id, in_out_detail[1])[0]
-                        in3 = transform_in(pe_id, in_out_detail[2])[0]
-                        in4 = '000000'
+                        in3 = '00000000'
+                        in4 = transform_in(pe_id, in_out_detail[2])[0]
                         Imm = transform_in(pe_id, in_out_detail[1])[1]
                         if in_out_num == 4:
                             out1 = transform_out(in_out_detail[3])
