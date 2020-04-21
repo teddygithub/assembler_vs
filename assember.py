@@ -367,6 +367,8 @@ def transform_in(pe_id, data_from):
                 bin = '10' + transform_index(pe_id, data_from[4:])
             else:
                 bin = '11' + transform_index(pe_id, data_from[4:])
+
+
     else:
         bin = 'xxxxxxxx'
     return bin, Imm
@@ -483,6 +485,11 @@ def main():
                 operation = line_in_PE[0]
                 in_out_detail = line_in_PE[1].split(',')
                 if operation[0:4] == 'load':
+                    len_in_out = len(in_out_detail)
+                    if len_in_out == 2:
+                        load_out = '1000000'
+                    else:
+                        load_out = transform_out(in_out_detail[2])
                     offset = int(in_out_detail[1])
                     if offset < 0:
                         offset = - offset
@@ -494,14 +501,14 @@ def main():
                     if in_out_detail[0][0:2] == 'SM':
                         each_line_bin = '0_' + '10_' + transform_in(pe_id, in_out_detail[0])[0][0:8]+'_' + '00000000_' \
                                         + transform_in(pe_id, in_out_detail[0])[0][8:]+'_' + D2B(offset).zfill(5)[1:]+'_' \
-                                        + D2B(offset).zfill(5)[0]+'_' + '00_' + transform_out(in_out_detail[2])+'_'  \
+                                        + D2B(offset).zfill(5)[0]+'_' + '00_' + load_out+'_'  \
                                         + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
                     else:
                         each_line_bin = '0_' + '10_' + transform_in(pe_id, in_out_detail[0])[0]+'_' + '00000000_' \
                                         + '00000000_' + D2B(offset).zfill(5)[1:]+'_' \
-                                        + D2B(offset).zfill(5)[0]+'_' + '00_' + transform_out(in_out_detail[2])+'_'  \
+                                        + D2B(offset).zfill(5)[0]+'_' + '00_' + load_out+'_'  \
                                         + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
