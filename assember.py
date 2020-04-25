@@ -333,7 +333,10 @@ def transform_in(pe_id, data_from):
     elif data_from[0:2] == 'SM':
         bin = '100' + D2B(int(data_from[2:])).zfill(13)
     elif data_from[0:2] == 'IM':
-        bin = D2B(int(data_from[2:])).zfill(8)
+        if data_from[2] == '-':
+            bin = '1' + D2B(128 - int(data_from[3:])).zfill(7)
+        else:
+            bin = D2B(int(data_from[2:])).zfill(8)
         Imm = '1'
     elif(data_from[0:3] == 'PE0' and data_from[4:] != 'self'):
         if data_from[3] == 'A':
@@ -634,7 +637,7 @@ def main():
             PE_bin.append(pefunction_bin_each)
         PES_bin.append(PE_bin)
 
-        # print(top_final)
+        #print(D2B(-6))
         # print(pefunction_bin)
         # print(PE_bin)
         # print(PES_bin)
