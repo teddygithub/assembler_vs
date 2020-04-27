@@ -505,14 +505,14 @@ def main():
                         each_line_bin = '0_' + '10_' + transform_in(pe_id, in_out_detail[0])[0][0:8]+'_' + '00000000_' \
                                         + transform_in(pe_id, in_out_detail[0])[0][8:]+'_' + D2B(offset).zfill(5)[1:]+'_' \
                                         + D2B(offset).zfill(5)[0]+'_' + '00_' + load_out+'_'  \
-                                        + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
+                                        + '0000_' + transform_op(operation, pe_id)[1]+'_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
                     else:
                         each_line_bin = '0_' + '10_' + transform_in(pe_id, in_out_detail[0])[0]+'_' + '00000000_' \
                                         + '00000000_' + D2B(offset).zfill(5)[1:]+'_' \
                                         + D2B(offset).zfill(5)[0]+'_' + '00_' + load_out+'_'  \
-                                        + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
+                                        + '0000_' + transform_op(operation, pe_id)[1]+'_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
                 elif operation[0:4] == 'stor':
@@ -528,7 +528,7 @@ def main():
                         each_line_bin = '0_' + '10_' + transform_in(pe_id, in_out_detail[0])[0][0:8]+'_' + transform_in(pe_id, in_out_detail[1])[0] \
                                         +'_'+ transform_in(pe_id, in_out_detail[0])[0][8:]+'_' + D2B(offset).zfill(5)[1:]+'_' \
                                         + D2B(offset).zfill(5)[0]+'_' + '00_' + '1000000_'  \
-                                        + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
+                                        + '0000_' + transform_op(operation, pe_id)[1]+'_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
                     else:
@@ -536,7 +536,7 @@ def main():
                                         transform_in(pe_id, in_out_detail[1])[0]+'_' \
                                         + '00000000_' + D2B(offset).zfill(5)[1:]+'_' \
                                         + D2B(offset).zfill(5)[0]+'_' + '00_' + '1000000_'  \
-                                        + transform_op(operation, pe_id)[1]+'_' + '0000_' + transform_iteration(iteration, II)[1]+'_' \
+                                        + '0000_' + transform_op(operation, pe_id)[1]+'_' + transform_iteration(iteration, II)[1]+'_' \
                                         + increase_flag+'_' + transform_iteration(iteration, II)[0]+'_' + '000_' \
                                         + transform_op(operation, pe_id)[0]
                 else:
